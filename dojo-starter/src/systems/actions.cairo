@@ -16,20 +16,20 @@ mod actions {
     use starknet::{ContractAddress, get_caller_address};
     use dojo_starter::models::{position::{Position, Vec2}, moves::{Moves, Direction}};
 
-    // // declaring custom event struct
-    // #[event]
-    // #[derive(Drop, starknet::Event)]
-    // enum Event {
-    //     Moved: Moved,
-    // }
+    // declaring custom event struct
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        Moved: Moved,
+    }
 
-    // // declaring custom event struct
-    // #[derive(starknet::Event, Model, Copy, Drop, Serde)]
-    // struct Moved {
-    //     #[key]
-    //     player: ContractAddress,
-    //     direction: Direction
-    // }
+    // declaring custom event struct
+    #[derive(starknet::Event, Model, Copy, Drop, Serde)]
+    struct Moved {
+        #[key]
+        player: ContractAddress,
+        direction: Direction
+    }
 
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
@@ -39,6 +39,8 @@ mod actions {
             let player = get_caller_address();
             // Retrieve the player's current position from the world.
             let position = get!(world, player, (Position));
+            // Retrieve the player's move data, e.g., how many moves they have left.
+            let moves = get!(world, player, (Moves));
 
             // Update the world state with the new data.
             // 1. Increase the player's remaining moves by 1.
@@ -46,7 +48,9 @@ mod actions {
             set!(
                 world,
                 (
-                    Moves { player, remaining: 100, last_direction: Direction::None(()) },
+                    Moves {
+                        player, remaining: moves.remaining + 1, last_direction: Direction::None(())
+                    },
                     Position {
                         player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
                     },
@@ -73,8 +77,9 @@ mod actions {
 
             // // Update the world state with the new moves data and position.
             set!(world, (moves, next));
-        // Emit an event to the world to notify about the player's move.
-        // emit!(world, Moved { player, direction });
+
+            // Emit an event to the world to notify about the player's move.
+            emit!(world, Moved { player, direction });
         }
     }
 }
