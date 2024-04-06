@@ -9,7 +9,7 @@ export const BlobberSel = () => {
   const {account} = useDojo();
 
   return (
-    <div className="h-80 flex flex-col bg-orange-900/80 border rounded-xl overflow-hidden"
+    <div className="h-[350px] flex flex-col bg-orange-900/80 border rounded-xl overflow-hidden"
       style={{
         backgroundImage: `url(/assets/library.png)`,
         backgroundSize: "100%",
@@ -18,10 +18,11 @@ export const BlobberSel = () => {
         backgroundRepeat: "no-repeat"
       }} 
     >
-      <div className="text-white flex justify-center items-center
-      pt-2 px-2 m-0
+      <div className="text-white flex flex-col justify-center items-center
+      pt-4 px-2 m-0
       ">
-        {account && account?.list().length >0 ? "Select a Registered Blobber to Fight For U!":""}
+        {/* <span>{account && account?.list().length >0 ? `Select a Registered Blobber to Fight For U!`:""}</span> */}
+        <span>{account && account?.list().length >0 ?`Your Current Selected Blobber Address is: ${account.account.address}`:""}</span>
       </div>
       {account && account?.list().length >0 ? 
       
@@ -30,11 +31,14 @@ export const BlobberSel = () => {
       " slide={false}>
 
         {/* Burner Cards */}
-        {account?.list().map((account, index) => {
+        {account?.list().map((a, index) => {
           return(
           <div className="flex justify-center items-center">
-            <BlobberCard burnerAddress={
-              account ? account.address : ""} 
+            <BlobberCard 
+              blobbersIndex={index}
+              burnerAddress={
+              a ? a.address : ""} 
+              selected={account.account.address===a.address}
             />
           </div>
           );

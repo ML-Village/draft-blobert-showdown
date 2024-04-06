@@ -93,7 +93,7 @@ function App() {
                         Kick All Blobbers</button>
                     
                     <span className="flex items-center justify-end
-                    font-semibold ml-auto mr-2 px-2
+                    font-semibold mx-2 px-2
                     ">
                         {`Summoned Blobbers: ${account.count}/4`}
                     </span>
