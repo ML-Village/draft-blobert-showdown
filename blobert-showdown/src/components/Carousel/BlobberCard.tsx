@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { blobbersPath } from '../../config/constants/blobbers';
 import { useDojo } from '../../dojo/useDojo';
+import { Button, Modal } from "flowbite-react";
+import { customBlobertArray, customBlobertInfoObject } from '../../config/constants/customBloberts';
 
 export const BlobberCard = ({blobbersIndex, burnerAddress, selected} : 
   { 
@@ -10,6 +12,27 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
   }
   ) => {
     const {account} = useDojo();
+    const [openModal, setOpenModal] = useState(false);
+    const [targetSlot, setTargetSlot] = useState(0);
+    const [selectedBlobert, setSelectedBlobert] = useState(customBlobertArray[0]);
+
+    const [slotImagePath, setSlotImagePath] = useState({
+      0: "/assets/pc.png",
+      1: "/assets/pc.png",
+      2: "/assets/pc.png",
+      3: "/assets/pc.png",
+      4: "/assets/pc.png",
+      5: "/assets/pc.png",
+    });
+
+    const setBlobertToSlot = (blobert: string, slot: number) => {
+      //console.log(`Setting ${blobert} to slot ${slot}`);
+      setSlotImagePath({
+        ...slotImagePath,
+        [slot]: customBlobertInfoObject[blobert]?.path
+      });
+    }
+
   return (
     <div className={`${selected?"border-2 border-yellow-400":"border border-white"}
         rounded-lg p-4
@@ -17,12 +40,14 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
         flex items-center
         `}>
 
+          {/* profile image */}
           <div className={`
             ${selected? `border-orange-500`:`border-white`}
             mx-2 h-28 w-28 border rounded-lg flex items-center justify-center`}>
             <img className="w-full" src={blobbersPath[blobbersIndex % blobbersPath.length]} alt="..." />
           </div>
 
+          {/* data section */}
           <div className="flex flex-col w-full">
 
             {/* name input box */}
@@ -71,13 +96,191 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                 <img className="h-20 border rounded-lg" src="/assets/pc.png" />
                 <img className="h-20 border rounded-lg" src="/assets/pc.png" />
               </div>
+              
 
+              {/* configure lineup */}
               <button className="bg-orange-300 ml-auto shrink
                 px-2 py-2 border rounded-lg text-wrap text-sm
-                ">Configure Blobert Line-up</button>
+                "
+                onClick={() => setOpenModal(true)}
+
+                >Configure Blobert Line-up</button>
             </div>
 
           </div>
-        </div>
+          
+          <Modal dismissible 
+            show={openModal} 
+            position="top-center"
+            size="7xl" 
+            onClose={() => setOpenModal(false)}
+            popup
+            >
+            <Modal.Header>
+              <div className="mx-2 px-4 py-2">Choose Your Blobbery Blob Blob</div>
+              </Modal.Header>
+
+            <Modal.Body>
+
+              <div className="flex flex-col">
+
+                  <div className="flex ">
+
+                      {/* blob list panel */}
+                      <div className="border-2 border-orange-950 rounded-xl
+                      grid grid-cols-8
+                      w-2/3 overflow-auto
+                      ">
+                        {customBlobertArray.map((blobert, index) => {
+                          return (
+                            <div className="flex flex-col items-center justify-center
+                            mx-2 my-2
+                            ">
+                              <img className={`h-20 rounded-lg
+
+                              ${selectedBlobert==blobert?`border-8 border-orange-700`: `border`}
+                              hover:border-4 hover:border-yellow-400
+                              
+                              `} 
+                              src={customBlobertInfoObject[blobert]?.path} 
+                              onClick={()=>{
+                                setSelectedBlobert(blobert)
+                                setBlobertToSlot(blobert, targetSlot)
+                              }}
+                              />
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                      {/* feature panel */}
+                      <div className="flex-grow mx-2 
+                      flex flex-col items-center
+                      border border-orange-700 rounded-xl">
+
+                        {/* Blobert Name */}
+                        <div className="my-4 text-2xl font-semibold text-orange-900">
+                          {selectedBlobert.toUpperCase()}</div>
+                        
+                        {/* Blobert Image */}
+                        <div className="my-2">
+                          <img className="h-28 rounded-lg" src={customBlobertInfoObject[selectedBlobert]?.path} />
+                        </div>
+
+
+                        {/* Stats */}
+                        <div className="my-2 flex flex-col items-center justify-center w-full 
+                        text-xs text-orange-900">
+                          
+                          {/* HP */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">HP</span>
+                            <span className="flex-grow h-full">
+                              <div className="bg-green-400 w-4/6 h-full"></div>
+                            </span>
+                          </div>
+
+                          {/* ATK */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">Attack</span>
+                            <span className="flex-grow h-full">
+                              <div className="bg-red-400 w-4/6 h-full"></div>
+                            </span>
+                          </div>
+
+                          {/* DEF */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">Defense</span>
+                            <span className="flex-grow h-full">
+                              <div className="bg-blue-400 w-4/6 h-full"></div>
+                            </span>
+                            </div>
+                          
+                          {/* SPC */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">Special</span>
+                            <span className="flex-grow h-full">
+                              <div className="bg-yellow-400 w-4/6 h-full"></div>
+                            </span>
+                          </div>
+
+                          {/* SPE */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">Speed</span>
+                            <span className="flex-grow h-full">
+                              <div className="bg-purple-400 w-4/6 h-full"></div>
+                            </span>
+                          </div>
+
+
+                        </div>
+
+                        {/* Move Box */}
+                        <div className="w-full items-center justify-center
+                        p-2
+                        grid grid-cols-2 grid-rows-2 gap-1
+                        ">
+                          {/* 4 move buttons using array */}
+                          {
+                            Array(4).fill(0).map((_, index) => {
+                              return (
+                                <div className="bg-orange-300 border
+                                rounded-lg text-white font-semibold px-4 py-2
+                                flex justify-center items-center
+                                "
+                                >Move {index+1}</div>
+                              )
+                            })
+                          }
+                        </div>
+
+
+                      </div>
+                  </div>
+
+                  {/* lineup box */}
+                  <div className="flex flex-col justify-center items-center w-full">
+                        <span className="w-full px-4 py-2">Select a slot then pick a Blobert for that slot.</span>
+                        {/* Container for Lineup */}
+                        <div className="flex mb-2 mx-2 items-center justify-between">
+                          <div className="flex grid-cols-6 gap-1 justify-between w-full mx-1 px-1">
+                            {
+                              Array(6).fill(0).map((_, index) => {
+                                return (
+                                  <img className={`${targetSlot==index?`border-4 border-orange-700`: `border`} 
+                                  h-20 rounded-lg`} src={slotImagePath[index]} 
+                                  onClick={()=>{setTargetSlot(index)}}
+                                  />
+                                )
+                              })
+                            }
+                            
+                          </div>
+                          
+
+                          {/* configure lineup */}
+                          <button className="
+                          ml-auto shrink
+                            px-2 py-2 border rounded-lg 
+                            text-white text-wrap text-sm font-semibold
+                            bg-red-700 hover:bg-red-300 hover:text-orange-900 
+                            hover:border-orange-900 hover:border-2
+                            "
+                            onClick={()=>{}}
+                            >Confirm LineUp</button>
+                        </div>
+                    
+                      
+                  </div>
+
+              </div>
+            </Modal.Body>
+{/* 
+            <Modal.Footer>
+              
+            </Modal.Footer> */}
+          </Modal>
+
+      </div>
   )
 }
