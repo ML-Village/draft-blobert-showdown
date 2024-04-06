@@ -10,54 +10,25 @@ import { Spinner } from "flowbite-react";
 
 function App() {
     const {
-        setup: {
-            systemCalls: { spawn, move },
-            clientComponents: { Position, Moves },
-        },
         account,
     } = useDojo();
 
-    const [clipboardStatus, setClipboardStatus] = useState({
-        message: "",
-        isError: false,
-    });
-
-    // entity id we are syncing
-    const entityId = getEntityIdFromKeys([
-        BigInt(account?.account.address),
-    ]) as Entity;
-
-    // get current component values
-    const position = useComponentValue(Position, entityId);
-    const moves = useComponentValue(Moves, entityId);
-
-    const handleRestoreBurners = async () => {
-        try {
-            await account?.applyFromClipboard();
-            setClipboardStatus({
-                message: "Burners restored successfully!",
-                isError: false,
-            });
-        } catch (error) {
-            setClipboardStatus({
-                message: `Failed to restore burners from clipboard`,
-                isError: true,
-            });
-        }
-    };
-
-    useEffect(() => {
-        if (clipboardStatus.message) {
-            const timer = setTimeout(() => {
-                setClipboardStatus({ message: "", isError: false });
-            }, 3000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [clipboardStatus.message]);
-
     return (
-        <>  <div className="container mx-auto px-8 border border-red-500">
+        <div className="h-screen bg-[#000008]">  
+        
+        
+            <div className="w-[1080px] mx-auto px-8 
+            flex flex-col
+            border border-red-500
+            ">
+
+                {/* banner */}
+                <div className="flex justify-center items-center mt-7 mb-10
+                px-4 py-6 text-white border-2 rounded-xl 
+                text-5xl
+                ">
+                    <span>BLoBerT ShOwDoWn!</span>
+                </div>
 
                 {/* create burner/clear burner */}
                 <div className="flex py-2 text-orange-950">
@@ -93,15 +64,18 @@ function App() {
                         Kick All Blobbers</button>
                     
                     <span className="flex items-center justify-end
-                    font-semibold mx-2 px-2
+                    font-semibold mx-2 px-2 text-white
                     ">
                         {`Summoned Blobbers: ${account.count}/4`}
                     </span>
 
                 </div>
+                
+                {/* carousel of blobbers */}
                 <BlobberSel/>
+
             </div>
-        </>
+        </div>
     );
 }
 
