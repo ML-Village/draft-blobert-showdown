@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { blobbersPath } from "../../config/constants/blobbers";
 import { useDojo } from "../../dojo/useDojo";
 import { Button, Modal, Progress } from "flowbite-react";
@@ -8,9 +8,13 @@ import {
 } from "../../config/constants/customBloberts";
 import type { CustomFlowbiteTheme } from "flowbite-react";
 
+import { getEntityIdFromKeys } from "@dojoengine/utils";
+import { Entity } from "@dojoengine/recs";
+import { useComponentValue } from "@dojoengine/react";
+
 const customModalTheme: CustomFlowbiteTheme["modal"] = {
   root: {
-    base: "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+    base: "fixed inset-x-0 top-0 z-40 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
     show: {
       on: "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
       off: "hidden",
@@ -45,7 +49,24 @@ export const BlobberCard = ({
   burnerAddress: string;
   selected: boolean;
 }) => {
-  const { account } = useDojo();
+  const { account,
+    setup: {
+      systemCalls: { register_player, choose_blobert },
+      clientComponents: { Player, Game }
+    },
+   } = useDojo();
+
+   // entity id we are syncing
+   const entityId = getEntityIdFromKeys([
+    BigInt(account?.account.address),
+  ]) as Entity;
+
+  console.log(`Entity ID: ${entityId} , BurnerAddress: ${account?.account.address}`);
+
+  // get current component values
+  const player = useComponentValue(Player, entityId);
+  console.log(player)
+
   const [openModal, setOpenModal] = useState(false);
   const [targetSlot, setTargetSlot] = useState(0);
   const [selectedBlobert, setSelectedBlobert] = useState("notblobby");
@@ -66,6 +87,20 @@ export const BlobberCard = ({
       [slot]: customBlobertInfoObject[blobert]?.path,
     });
   };
+
+  const nameInputRef = useRef(null); // Create a ref for the input field
+  const [nameInputValue, setNameInputValue] = useState('');
+
+  const handleNameInputChange = (e) => {
+    // Update the input value
+    setNameInputValue(e.target.value);
+  };
+
+  const handleRegisterName = () => {
+    // Register the name
+    console.log(`Registering name: ${nameInputValue}`);
+    register_player(account.account, nameInputValue);
+  }
 
   return (
     <div
@@ -96,16 +131,24 @@ export const BlobberCard = ({
             Blobber Name
           </label>
           <input
-            className="flex-grow rounded-lg mx-2"
+            className="flex-grow rounded-lg mx-2 text-gray-800 bg-slate-300
+           focus:no-outline focus:ring-2 focus:ring-offset-transparent 
+           focus:border-yellow-500 focus:ring-yellow-500
+            "
             type="text"
             id="blobbername"
             name="blobbername"
             maxLength={31}
+            value={nameInputValue}
+            onChange={handleNameInputChange}
+            ref={nameInputRef}
+            onClick={()=> nameInputRef.current.focus()}
           />
           <button
             className="border border-white rounded-lg
               px-2 text-white bg-orange-800 hover:bg-orange-600
               "
+            onClick={handleRegisterName}
           >
             Register Name
           </button>

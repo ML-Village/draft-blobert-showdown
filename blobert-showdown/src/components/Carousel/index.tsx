@@ -4,17 +4,10 @@ import { Carousel } from "flowbite-react";
 import { useDojo } from "../../dojo/useDojo";
 import { BlobberCard } from "./BlobberCard";
 
-import {Teams} from '@pkmn/sim';
-import {TeamGenerators} from '@pkmn/randoms';
-
 // {account ? account.account.address : ""}
 export const BlobberSel = () => {
 
   const {account} = useDojo();
-
-  Teams.setGeneratorFactory(TeamGenerators);
-  const team = Teams.generate('gen1randombattle');
-  console.log(team);
   
   return (
     <div className="h-[350px] flex flex-col bg-orange-900/80 border border-gray-400 rounded-xl overflow-hidden"
