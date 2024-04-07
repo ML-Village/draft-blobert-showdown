@@ -15,7 +15,7 @@ const customModalTheme: CustomFlowbiteTheme["modal"] = {
   },
   "content": {
     "base": "relative h-full w-full p-4 md:h-auto",
-    "inner": "bg-orange-200/85 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
+    "inner": "bg-slate-400 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
   },
   "body": {
     "base": "flex-1 overflow-auto p-6",
@@ -188,10 +188,10 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                       {/* feature panel */}
                       <div className="flex-grow mx-2 
                       flex flex-col items-center
-                      border-2 border-orange-900 rounded-xl">
+                      border-2 border-gray-800 rounded-xl">
 
                         {/* Blobert Name */}
-                        <div className="my-4 text-2xl font-semibold text-orange-900">
+                        <div className="my-4 text-2xl font-semibold text-gray-800">
                           {selectedBlobert.toUpperCase()}</div>
                         
                         {/* Blobert Image */}
@@ -261,14 +261,14 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
 
                         {/* Move Box */}
                         <div className="w-full items-center justify-center
-                        p-2
+                        p-2 px-8
                         grid grid-cols-2 grid-rows-2 gap-1
                         ">
                           {/* 4 move buttons using array */}
                           {
                             Array(4).fill(0).map((_, index) => {
                               return (
-                                <div className="bg-amber-800 border
+                                <div className="bg-orange-700/60 border-2 border-gray-800
                                 rounded-lg text-white font-semibold px-4 py-2
                                 flex justify-center items-center cursor-pointer
                                 "
@@ -284,7 +284,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
 
                   {/* lineup box */}
                   <div className="flex flex-col justify-center items-center w-full">
-                        <span className="w-full px-4 py-2">Select a slot then pick a Blobert for that slot.</span>
+                        <span className="w-full px-4 py-2 text-2xl font-semibold">Select a slot then pick a Blobert for that slot.</span>
                         {/* Container for Lineup */}
                         <div className="flex mb-2 mx-2 items-center justify-between">
                           <div className="flex grid-cols-6 gap-1 justify-between w-full mx-1 px-1">

@@ -40,7 +40,7 @@ const customModalThem: CustomFlowbiteTheme["modal"] = {
     },
     "content": {
       "base": "relative h-full w-full p-4 md:h-auto",
-      "inner": "bg-orange-200/85 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
+      "inner": "bg-orange-200 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
     },
     "body": {
       "base": "flex-1 overflow-auto p-6",
@@ -111,22 +111,22 @@ export const BattleTable = () => {
                                         </div>
                                     </Table.Cell>
 
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob1]]?.path
                                     } alt=""/></Table.Cell>
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob2]]?.path
                                     } alt=""/></Table.Cell>
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob3]]?.path
                                     } alt=""/></Table.Cell>
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob4]]?.path
                                     } alt=""/></Table.Cell>
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob5]]?.path
                                     } alt=""/></Table.Cell>
-                                    <Table.Cell><img className="h-10 rounded-md" src={
+                                    <Table.Cell><img className="h-14 rounded-md border border-gray-800" src={
                                         customBlobertInfoObject[customBlobertArray[blobber.blob6]]?.path
                                     } alt=""/></Table.Cell>
 
@@ -172,7 +172,7 @@ export const BattleTable = () => {
                             
                             {/* stats div */}
                             <div className="mr-8">
-                                <div className="flex flex-col items-end justify-center font-semibold text-gray-800">
+                                <div className="flex flex-col items-end justify-center text-xl font-bold text-gray-800">
                                     <span>Total Games: {selectedBlobber.totalGames}</span>
                                     <span>Win Rate: {selectedBlobber.winRate}</span>
                                 </div>
