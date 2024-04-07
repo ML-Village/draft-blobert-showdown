@@ -130,8 +130,8 @@ export const BattleTable = () => {
                                         customBlobertInfoObject[customBlobertArray[blobber.blob6]]?.path
                                     } alt=""/></Table.Cell>
 
-                                    <Table.Cell>{blobber.totalGames}</Table.Cell>
-                                    <Table.Cell>{blobber.winRate}</Table.Cell>
+                                    <Table.Cell className="font-semibold">{blobber.totalGames}</Table.Cell>
+                                    <Table.Cell className="font-semibold">{blobber.winRate}</Table.Cell>
                                 </Table.Row>
                             ))
                         }
