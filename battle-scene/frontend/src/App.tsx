@@ -99,6 +99,28 @@ const Battle = () => {
     setBattleLog((prevLog) => [...prevLog, message]);
   };
 
+  const handleFightClick = () => {
+    setShowFightButtons(false);
+    setShowMoveButtons(true);
+  };
+
+  const handlePokemonClick = () => {
+    setShowFightButtons(false);
+    setShowMoveButtons(false);
+    setShowPokemonButtons(true);
+  };
+
+  const handlePokemonSelect = (pokemon: Pokemon) => {
+    setSelectedPokemon(pokemon);
+    setShowPokemonButtons(false);
+    setShowFightButtons(true);
+  };
+
+  const handleAfterMove = () => {
+    setShowMoveButtons(false);
+    setShowFightButtons(true);
+  };
+
   const attack = (
     move: [string, string, number, number?],
     attacker: Pokemon,
@@ -149,6 +171,7 @@ const Battle = () => {
     // Clear the comment after both the attack and opponent's move have been displayed and logged
     setTimeout(() => {
       setCommentText("");
+      handleAfterMove();
     }, 4000);
 
     checkWinner();
@@ -202,23 +225,6 @@ const Battle = () => {
         addToBattleLog(`GAME OVER: ${loser.name} fainted!`);
       }, 1500);
     }
-  };
-
-  const handleFightClick = () => {
-    setShowFightButtons(false);
-    setShowMoveButtons(true);
-  };
-
-  const handlePokemonClick = () => {
-    setShowFightButtons(false);
-    setShowMoveButtons(false);
-    setShowPokemonButtons(true);
-  };
-
-  const handlePokemonSelect = (pokemon: Pokemon) => {
-    setSelectedPokemon(pokemon);
-    setShowPokemonButtons(false);
-    setShowFightButtons(true);
   };
 
   return (
