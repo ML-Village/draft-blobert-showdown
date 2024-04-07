@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { blobbersPath } from '../../config/constants/blobbers';
 import { useDojo } from '../../dojo/useDojo';
-import { Button, Modal } from "flowbite-react";
+import { Button, Modal, Progress } from "flowbite-react";
 import { customBlobertArray, customBlobertInfoObject } from '../../config/constants/customBloberts';
 
 export const BlobberCard = ({blobbersIndex, burnerAddress, selected} : 
@@ -14,7 +14,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
     const {account} = useDojo();
     const [openModal, setOpenModal] = useState(false);
     const [targetSlot, setTargetSlot] = useState(0);
-    const [selectedBlobert, setSelectedBlobert] = useState("nobody");
+    const [selectedBlobert, setSelectedBlobert] = useState("notblobby");
 
     const [slotImagePath, setSlotImagePath] = useState({
       0: "/assets/pc.png",
@@ -135,7 +135,9 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                           return (
                             <div className="flex flex-col items-center justify-center
                             mx-2 my-2
-                            ">
+                            "
+                            key={`blobber-card-${index}`}
+                            >
                               <img className={`h-20 rounded-lg
                                 cursor-pointer
                               ${selectedBlobert==blobert?`border-8 border-orange-700`: `border`}
@@ -175,44 +177,56 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                           {/* HP */}
                           <div className="w-full flex items-center pl-6">
                             <span className="mx-4 w-12">HP</span>
-                            <span className="flex-grow h-full">
-                              <div className="bg-green-400 w-4/6 h-full"></div>
+                            <span className="flex-grow h-full pt-1">
+                              <Progress progress={255/255*100} color="lime" />
                             </span>
+                            <span className="w-10 ml-1">255</span>
                           </div>
 
                           {/* ATK */}
                           <div className="w-full flex items-center pl-6">
                             <span className="mx-4 w-12">Attack</span>
-                            <span className="flex-grow h-full">
-                              <div className="bg-red-400 w-4/6 h-full"></div>
+                            <span className="flex-grow h-full pt-1">
+                            <Progress progress={180/255*100} color="yellow" />
                             </span>
+                            <span className="w-10 ml-1">180</span>
                           </div>
 
                           {/* DEF */}
                           <div className="w-full flex items-center pl-6">
                             <span className="mx-4 w-12">Defense</span>
-                            <span className="flex-grow h-full">
-                              <div className="bg-blue-400 w-4/6 h-full"></div>
+                            <span className="flex-grow h-full pt-1">
+                            <Progress progress={160/255*100} color="teal" />
                             </span>
+                            <span className="w-10 ml-1">255</span>
                             </div>
                           
-                          {/* SPC */}
+                          {/* SPC ATk */}
                           <div className="w-full flex items-center pl-6">
-                            <span className="mx-4 w-12">Special</span>
-                            <span className="flex-grow h-full">
-                              <div className="bg-yellow-400 w-4/6 h-full"></div>
+                            <span className="mx-4 w-12">Spc Atk</span>
+                            <span className="flex-grow h-full pt-1">
+                            <Progress progress={160/255*100} color="pink" />
                             </span>
+                            <span className="w-10 ml-1">255</span>
+                          </div>
+
+                          {/* SPC Def */}
+                          <div className="w-full flex items-center pl-6">
+                            <span className="mx-4 w-12">Spc Def</span>
+                            <span className="flex-grow h-full pt-1">
+                            <Progress progress={160/255*100} color="blue" />
+                            </span>
+                            <span className="w-10 ml-1">255</span>
                           </div>
 
                           {/* SPE */}
                           <div className="w-full flex items-center pl-6">
                             <span className="mx-4 w-12">Speed</span>
-                            <span className="flex-grow h-full">
-                              <div className="bg-purple-400 w-4/6 h-full"></div>
+                            <span className="flex-grow h-full pt-1">
+                            <Progress progress={160/255*100} color="purple" />
                             </span>
+                            <span className="w-10 ml-1">255</span>
                           </div>
-
-
                         </div>
 
                         {/* Move Box */}
@@ -226,7 +240,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                               return (
                                 <div className="bg-orange-300 border
                                 rounded-lg text-white font-semibold px-4 py-2
-                                flex justify-center items-center
+                                flex justify-center items-center cursor-pointer
                                 "
                                 >Move {index+1}</div>
                               )
@@ -248,7 +262,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                               Array(6).fill(0).map((_, index) => {
                                 return (
                                   <img className={`${targetSlot==index?`border-4 border-orange-700`: `border`} 
-                                  h-20 rounded-lg`} src={slotImagePath[index]} 
+                                  h-20 rounded-lg cursor-pointer`} src={slotImagePath[index]} 
                                   onClick={()=>{setTargetSlot(index)}}
                                   />
                                 )

@@ -3,11 +3,19 @@ import { Carousel } from "flowbite-react";
 
 import { useDojo } from "../../dojo/useDojo";
 import { BlobberCard } from "./BlobberCard";
+
+import {Teams} from '@pkmn/sim';
+import {TeamGenerators} from '@pkmn/randoms';
+
 // {account ? account.account.address : ""}
 export const BlobberSel = () => {
 
   const {account} = useDojo();
 
+  Teams.setGeneratorFactory(TeamGenerators);
+  const team = Teams.generate('gen1randombattle');
+  console.log(team);
+  
   return (
     <div className="h-[350px] flex flex-col bg-orange-900/80 border rounded-xl overflow-hidden"
       style={{
@@ -33,7 +41,7 @@ export const BlobberSel = () => {
         {/* Burner Cards */}
         {account?.list().reverse().map((a, index) => {
           return(
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center" key={`blobbercard-${index}`}>
             <BlobberCard 
               blobbersIndex={index}
               burnerAddress={
