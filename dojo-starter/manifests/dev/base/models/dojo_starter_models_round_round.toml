@@ -1,0 +1,20 @@
+kind = "DojoModel"
+class_hash = "0x38bb48220575d06edf1fce3194b72eb3854667d2db08a1497200bf38b7b973f"
+original_class_hash = "0x38bb48220575d06edf1fce3194b72eb3854667d2db08a1497200bf38b7b973f"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_round_round.json"
+name = "dojo_starter::models::round::round"
+
+[[members]]
+name = "duel_id"
+type = "u128"
+key = true
+
+[[members]]
+name = "round_number"
+type = "u8"
+key = true
+
+[[members]]
+name = "state"
+type = "u8"
+key = false

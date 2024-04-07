@@ -1,0 +1,15 @@
+kind = "DojoModel"
+class_hash = "0x226c7cb1d7677c1e28c1c3465def76f5d147d6526511c1621bf1f296d47d0e1"
+original_class_hash = "0x226c7cb1d7677c1e28c1c3465def76f5d147d6526511c1621bf1f296d47d0e1"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_types_blobert_types.json"
+name = "dojo_starter::models::types::blobert_types"
+
+[[members]]
+name = "blobert_id"
+type = "u8"
+key = true
+
+[[members]]
+name = "blobert_type"
+type = "Type"
+key = false

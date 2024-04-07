@@ -1,0 +1,15 @@
+kind = "DojoModel"
+class_hash = "0x70bf34f5584df2fc7f90cdfdcd5d58dedc0f4ae6769fe59c7193bda1535e6b2"
+original_class_hash = "0x70bf34f5584df2fc7f90cdfdcd5d58dedc0f4ae6769fe59c7193bda1535e6b2"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_types_pokemon_types.json"
+name = "dojo_starter::models::types::pokemon_types"
+
+[[members]]
+name = "pokemon_id"
+type = "u8"
+key = true
+
+[[members]]
+name = "pokemon_type"
+type = "Type"
+key = false
