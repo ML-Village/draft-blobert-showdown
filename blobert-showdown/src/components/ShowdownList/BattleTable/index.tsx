@@ -46,7 +46,7 @@ const customModalThem: CustomFlowbiteTheme["modal"] = {
   content: {
     base: "relative h-full w-full p-4 md:h-auto",
     inner:
-      "bg-orange-200 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700",
+      "bg-orange-200/95 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700",
   },
   body: {
     base: "flex-1 overflow-auto p-6",
