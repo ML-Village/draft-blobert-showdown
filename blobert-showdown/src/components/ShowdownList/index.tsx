@@ -70,7 +70,7 @@ export const ShowDownList = () => {
   return (
     <Tabs theme={customTabsTheme} aria-label="Showdowns List" style="underline">
       <Tabs.Item active title="World Blobbers" icon={FaUserNinja}>
-        <div className=" h-[35rem] overflow-y-auto">
+        <div className="h-[35rem] overflow-y-auto">
           <div className="overflow-x-auto">
             <BattleTable />
           </div>
