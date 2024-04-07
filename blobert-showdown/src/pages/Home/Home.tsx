@@ -157,7 +157,7 @@ const Home = () => {
         <div
           className="border border-gray-400 rounded-lg 
                 mt-4
-                h-[72vh] flex flex-col overflow-auto
+                max-h-[72vh] flex flex-col overflow-auto
                 "
         >
           <ShowDownList />
