@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import './index.css'
+import TwoPlayer from './App2.tsx'
+import OnePlayer from './App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+   {/* <OnePlayer/> */}
+   <TwoPlayer/>
   </React.StrictMode>,
 )
