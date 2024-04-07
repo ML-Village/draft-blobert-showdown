@@ -1,0 +1,7 @@
+kind = "DojoContract"
+class_hash = "0xeb3e8868eb69828b5926ef64e5150a9e4a231b5913c6f20fda53603f832a7"
+abi = "abis/base/contracts/battleSystem.json"
+reads = []
+writes = []
+computed = []
+name = "dojo_starter::systems::battleSystem::battleSystem"

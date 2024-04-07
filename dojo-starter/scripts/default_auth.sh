@@ -6,18 +6,28 @@ export RPC_URL="http://localhost:5050"
 
 export WORLD_ADDRESS=$(cat ./manifests/deployments/KATANA.json | jq -r '.world.address')
 
-export ACTIONS_ADDRESS=$(cat ./manifests/deployments/KATANA.json | jq -r '.contracts[] | select(.name == "dojo_starter::systems::actions::actions" ).address')
+export LOBBY_ADDRESS=$(cat ./manifests/deployments/KATANA.json | jq -r '.contracts[] | select(.name == "dojo_starter::systems::lobby::lobby" ).address')
+
+export BATTLESYSTEM_ADDRESS=$(cat ./manifests/deployments/KATANA.json | jq -r '.contracts[] | select(.name == "dojo_starter::systems::battleSystem::battleSystem" ).address')
 
 echo "---------------------------------------------------------------------------"
 echo world : $WORLD_ADDRESS
 echo " "
-echo actions : $ACTIONS_ADDRESS
+echo lobby : $LOBBY_ADDRESS
+echo " "
+echo battlesystem : $BATTLESYSTEM_ADDRESS
 echo "---------------------------------------------------------------------------"
 
 # enable system -> models authorizations
 sozo auth grant --world $WORLD_ADDRESS --wait writer \
-  Position,$ACTIONS_ADDRESS \
-  Moves,$ACTIONS_ADDRESS \
+  Player,$LOBBY_ADDRESS \
+  Game,$LOBBY_ADDRESS \
+  >/dev/null
+
+# enable system -> models authorizations
+sozo auth grant --world $WORLD_ADDRESS --wait writer \
+  Game,$BATTLESYSTEM_ADDRESS \
+  Round,$BATTLESYSTEM_ADDRESS \
   >/dev/null
 
 echo "Default authorizations have been successfully set."

@@ -1,0 +1,14 @@
+kind = "DojoModel"
+class_hash = "0x55991fc8622ddddd765410a846d978b5f8cf529fc107f708342f5a0cc117302"
+abi = "abis/base/models/side_effects.json"
+name = "dojo_starter::models::side_effect::side_effects"
+
+[[members]]
+name = "player_address"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "pokemon_id"
+type = "u8"
+key = false
