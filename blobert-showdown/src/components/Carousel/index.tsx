@@ -17,7 +17,7 @@ export const BlobberSel = () => {
   console.log(team);
   
   return (
-    <div className="h-[350px] flex flex-col bg-orange-900/80 border rounded-xl overflow-hidden"
+    <div className="h-[350px] flex flex-col bg-orange-900/80 border border-gray-400 rounded-xl overflow-hidden"
       style={{
         backgroundImage: `url(/assets/library.png)`,
         backgroundSize: "100%",

@@ -4,7 +4,7 @@ class_hash = "0x799bc4e9da10bfb3dd88e6f223c9cfbf7745435cd14f5d69675ea448e578cd"
 abi = "abis/deployments/KATANA/world.json"
 address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8"
 transaction_hash = "0x655dac51bc3d07b9963a62c5eef4caf15b2bf1f379227faf54177ff6b458a2e"
-block_number = 10
+block_number = 3
 seed = "dojo_starter"
 name = "dojo::world::world"
 
