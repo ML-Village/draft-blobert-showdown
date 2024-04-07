@@ -69,7 +69,6 @@ const typeMatch: Record<string, [string[], string[], string[]]> = {
 // Battle component
 const Battle = () => {
   const [gameOver, setGameOver] = useState(false);
-  const [pk1, setPk1] = useState<Pokemon | null>(null);
   const [pk2, setPk2] = useState<Pokemon | null>(null);
   const [battleLog, setBattleLog] = useState<string[]>([]);
   const [commentText, setCommentText] = useState("");
@@ -77,17 +76,17 @@ const Battle = () => {
   const [showMoveButtons, setShowMoveButtons] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPokemonButtons, setShowPokemonButtons] = useState(false);
+  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     initializeBattle();
   }, []);
 
   const initializeBattle = () => {
-    const spawnPk1 = spawnPokemon();
-    const spawnPk2 = spawnPokemon();
-    setPk1(spawnPk1);
-    setPk2(spawnPk2);
-    setSelectedPokemon(spawnPk1);
+    const pokemonList = pkmList.map((pkm) => new Pokemon(...pkm));
+    setPokemonList(pokemonList);
+    setSelectedPokemon(pokemonList[0]);
+    setPk2(spawnPokemon());
   };
 
   const spawnPokemon = () => {
@@ -110,10 +109,15 @@ const Battle = () => {
     setShowPokemonButtons(true);
   };
 
-  const handlePokemonSelect = (pokemon: Pokemon) => {
-    setSelectedPokemon(pokemon);
-    setShowPokemonButtons(false);
-    setShowFightButtons(true);
+  const handlePokemonSelect = (pokemonName: string) => {
+    const selectedPokemon = pokemonList.find(
+      (pokemon) => pokemon.name === pokemonName
+    );
+    if (selectedPokemon) {
+      setSelectedPokemon(selectedPokemon);
+      setShowPokemonButtons(false);
+      setShowFightButtons(true);
+    }
   };
 
   const handleAfterMove = () => {
@@ -204,7 +208,11 @@ const Battle = () => {
 
   const updatePokemonHp = (pokemonId: string, hp: number) => {
     if (pokemonId === "pk1") {
-      setPk1((prevPk1) => prevPk1 && { ...prevPk1, hp });
+      setPokemonList((prevList) =>
+        prevList.map((pokemon) =>
+          pokemon.name === selectedPokemon?.name ? { ...pokemon, hp } : pokemon
+        )
+      );
     } else {
       setPk2((prevPk2) => prevPk2 && { ...prevPk2, hp });
     }
@@ -290,13 +298,13 @@ const Battle = () => {
         )}
         {showPokemonButtons && (
           <div className="grid grid-cols-3 gap-4">
-            {pkmList.map((pkm, index) => (
+            {pokemonList.map((pokemon, index) => (
               <button
                 key={index}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => handlePokemonSelect(new Pokemon(...pkm))}
+                onClick={() => handlePokemonSelect(pokemon.name)}
               >
-                {pkm[0]}
+                {pokemon.name}
               </button>
             ))}
           </div>
