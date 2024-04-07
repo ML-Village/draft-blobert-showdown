@@ -3,6 +3,34 @@ import { blobbersPath } from '../../config/constants/blobbers';
 import { useDojo } from '../../dojo/useDojo';
 import { Button, Modal, Progress } from "flowbite-react";
 import { customBlobertArray, customBlobertInfoObject } from '../../config/constants/customBloberts';
+import type { CustomFlowbiteTheme } from "flowbite-react";
+
+const customModalTheme: CustomFlowbiteTheme["modal"] = {
+  "root": {
+    "base": "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+    "show": {
+      "on": "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
+      "off": "hidden"
+    },
+  },
+  "content": {
+    "base": "relative h-full w-full p-4 md:h-auto",
+    "inner": "bg-orange-200/85 relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
+  },
+  "body": {
+    "base": "flex-1 overflow-auto p-6",
+    "popup": "pt-0"
+  },
+  "header": {
+    "base": "flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600",
+    "popup": "border-b-0 p-2",
+    "title": "text-xl font-medium text-gray-900 dark:text-white",
+    "close": {
+      "base": "ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-700 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white",
+      "icon": "h-5 w-5"
+    }
+  },
+}
 
 export const BlobberCard = ({blobbersIndex, burnerAddress, selected} : 
   { 
@@ -109,7 +137,9 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
 
           </div>
           
-          <Modal dismissible 
+          <Modal 
+            theme={customModalTheme}
+            dismissible 
             show={openModal} 
             position="top-center"
             size="7xl" 
@@ -158,7 +188,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                       {/* feature panel */}
                       <div className="flex-grow mx-2 
                       flex flex-col items-center
-                      border border-orange-700 rounded-xl">
+                      border-2 border-orange-900 rounded-xl">
 
                         {/* Blobert Name */}
                         <div className="my-4 text-2xl font-semibold text-orange-900">
@@ -166,7 +196,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                         
                         {/* Blobert Image */}
                         <div className="my-2">
-                          <img className="h-28 rounded-lg" src={customBlobertInfoObject[selectedBlobert]?.path} />
+                          <img className="h-28 rounded-lg border-2 border-gray-800" src={customBlobertInfoObject[selectedBlobert]?.path} />
                         </div>
 
 
@@ -238,7 +268,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                           {
                             Array(4).fill(0).map((_, index) => {
                               return (
-                                <div className="bg-orange-300 border
+                                <div className="bg-amber-800 border
                                 rounded-lg text-white font-semibold px-4 py-2
                                 flex justify-center items-center cursor-pointer
                                 "
