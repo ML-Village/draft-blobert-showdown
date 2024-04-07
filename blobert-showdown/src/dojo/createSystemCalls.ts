@@ -16,32 +16,33 @@ export type SystemCalls = ReturnType<typeof createSystemCalls>;
 export function createSystemCalls(
     { client }: { client: IWorld },
     contractComponents: ContractComponents,
-    { Position, Moves }: ClientComponents
+    { Player, Game }: ClientComponents
 ) {
-    const spawn = async (account: AccountInterface) => {
-        const entityId = getEntityIdFromKeys([
-            BigInt(account.address),
-        ]) as Entity;
+    const register_player = async (account: AccountInterface, name: string) => {
+        // const entityId = getEntityIdFromKeys([
+        //     BigInt(account.address),
+        // ]) as Entity;
 
-        const positionId = uuid();
-        Position.addOverride(positionId, {
-            entity: entityId,
-            value: { player: BigInt(entityId), vec: { x: 10, y: 10 } },
-        });
+        // const positionId = uuid();
+        // Position.addOverride(positionId, {
+        //     entity: entityId,
+        //     value: { player: BigInt(entityId), vec: { x: 10, y: 10 } },
+        // });
 
-        const movesId = uuid();
-        Moves.addOverride(movesId, {
-            entity: entityId,
-            value: {
-                player: BigInt(entityId),
-                remaining: 100,
-                last_direction: 0,
-            },
-        });
+        // const movesId = uuid();
+        // Moves.addOverride(movesId, {
+        //     entity: entityId,
+        //     value: {
+        //         player: BigInt(entityId),
+        //         remaining: 100,
+        //         last_direction: 0,
+        //     },
+        // });
 
         try {
-            const { transaction_hash } = await client.actions.spawn({
+            const { transaction_hash } = await client.lobby.register_player({
                 account,
+                name
             });
 
             console.log(
@@ -60,46 +61,37 @@ export function createSystemCalls(
             );
         } catch (e) {
             console.log(e);
-            Position.removeOverride(positionId);
-            Moves.removeOverride(movesId);
+
         } finally {
-            Position.removeOverride(positionId);
-            Moves.removeOverride(movesId);
+            // Position.removeOverride(positionId);
+            // Moves.removeOverride(movesId);
         }
     };
 
-    const move = async (account: AccountInterface, direction: Direction) => {
-        const entityId = getEntityIdFromKeys([
-            BigInt(account.address),
-        ]) as Entity;
-
-        const positionId = uuid();
-        Position.addOverride(positionId, {
-            entity: entityId,
-            value: {
-                player: BigInt(entityId),
-                vec: updatePositionWithDirection(
-                    direction,
-                    getComponentValue(Position, entityId) as any
-                ).vec,
-            },
-        });
-
-        const movesId = uuid();
-        Moves.addOverride(movesId, {
-            entity: entityId,
-            value: {
-                player: BigInt(entityId),
-                remaining:
-                    (getComponentValue(Moves, entityId)?.remaining || 0) - 1,
-            },
-        });
-
+    const choose_blobert = async (account: AccountInterface,
+        blobert_1: number,
+        blobert_2: number,
+        blobert_3: number,
+        blobert_4: number,
+        blobert_5: number,
+        blobert_6: number
+    ) => {
         try {
-            const { transaction_hash } = await client.actions.move({
+            const { transaction_hash } = await client.lobby.choose_blobert({
                 account,
-                direction,
+                blobert_1,
+                blobert_2,
+                blobert_3,
+                blobert_4,
+                blobert_5,
+                blobert_6
             });
+
+            console.log(
+                await account.waitForTransaction(transaction_hash, {
+                    retryInterval: 100,
+                })
+            );
 
             setComponentsFromEvents(
                 contractComponents,
@@ -111,16 +103,11 @@ export function createSystemCalls(
             );
         } catch (e) {
             console.log(e);
-            Position.removeOverride(positionId);
-            Moves.removeOverride(movesId);
-        } finally {
-            Position.removeOverride(positionId);
-            Moves.removeOverride(movesId);
         }
-    };
-
+    }
+    
     return {
-        spawn,
-        move,
+        register_player,
+        choose_blobert,
     };
 }
