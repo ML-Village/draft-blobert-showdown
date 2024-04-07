@@ -169,8 +169,8 @@
   },
   {
     "type": "impl",
-    "name": "playerImpl",
-    "interface_name": "dojo_starter::models::player::Iplayer"
+    "name": "blobert_6Impl",
+    "interface_name": "dojo_starter::models::blobert::blobert_6::Iblobert_6"
   },
   {
     "type": "enum",
@@ -252,136 +252,6 @@
   },
   {
     "type": "struct",
-    "name": "dojo_starter::models::blobert::blobert_1::Blobert_1",
-    "members": [
-      {
-        "name": "player_id",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_id",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "health",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "blobert_type",
-        "type": "dojo_starter::models::types::BlobertTypes"
-      },
-      {
-        "name": "blobert_side_effect",
-        "type": "dojo_starter::models::side_effect::SideEffectType"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "dojo_starter::models::blobert::blobert_2::Blobert_2",
-    "members": [
-      {
-        "name": "player_id",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_id",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "health",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "blobert_type",
-        "type": "dojo_starter::models::types::BlobertTypes"
-      },
-      {
-        "name": "blobert_side_effect",
-        "type": "dojo_starter::models::side_effect::SideEffectType"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "dojo_starter::models::blobert::blobert_3::Blobert_3",
-    "members": [
-      {
-        "name": "player_id",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_id",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "health",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "blobert_type",
-        "type": "dojo_starter::models::types::BlobertTypes"
-      },
-      {
-        "name": "blobert_side_effect",
-        "type": "dojo_starter::models::side_effect::SideEffectType"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "dojo_starter::models::blobert::blobert_4::Blobert_4",
-    "members": [
-      {
-        "name": "player_id",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_id",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "health",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "blobert_type",
-        "type": "dojo_starter::models::types::BlobertTypes"
-      },
-      {
-        "name": "blobert_side_effect",
-        "type": "dojo_starter::models::side_effect::SideEffectType"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "dojo_starter::models::blobert::blobert_5::Blobert_5",
-    "members": [
-      {
-        "name": "player_id",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_id",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "health",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "blobert_type",
-        "type": "dojo_starter::models::types::BlobertTypes"
-      },
-      {
-        "name": "blobert_side_effect",
-        "type": "dojo_starter::models::side_effect::SideEffectType"
-      }
-    ]
-  },
-  {
-    "type": "struct",
     "name": "dojo_starter::models::blobert::blobert_6::Blobert_6",
     "members": [
       {
@@ -407,66 +277,8 @@
     ]
   },
   {
-    "type": "struct",
-    "name": "dojo_starter::models::player::Player",
-    "members": [
-      {
-        "name": "address",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "blobert_1",
-        "type": "dojo_starter::models::blobert::blobert_1::Blobert_1"
-      },
-      {
-        "name": "blobert_2",
-        "type": "dojo_starter::models::blobert::blobert_2::Blobert_2"
-      },
-      {
-        "name": "blobert_3",
-        "type": "dojo_starter::models::blobert::blobert_3::Blobert_3"
-      },
-      {
-        "name": "blobert_4",
-        "type": "dojo_starter::models::blobert::blobert_4::Blobert_4"
-      },
-      {
-        "name": "blobert_5",
-        "type": "dojo_starter::models::blobert::blobert_5::Blobert_5"
-      },
-      {
-        "name": "blobert_6",
-        "type": "dojo_starter::models::blobert::blobert_6::Blobert_6"
-      },
-      {
-        "name": "name",
-        "type": "core::felt252"
-      },
-      {
-        "name": "profile_pic",
-        "type": "core::integer::u8"
-      },
-      {
-        "name": "total_duels",
-        "type": "core::integer::u16"
-      },
-      {
-        "name": "total_wins",
-        "type": "core::integer::u16"
-      },
-      {
-        "name": "total_losses",
-        "type": "core::integer::u16"
-      },
-      {
-        "name": "timestamp",
-        "type": "core::integer::u64"
-      }
-    ]
-  },
-  {
     "type": "interface",
-    "name": "dojo_starter::models::player::Iplayer",
+    "name": "dojo_starter::models::blobert::blobert_6::Iblobert_6",
     "items": [
       {
         "type": "function",
@@ -474,7 +286,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "dojo_starter::models::player::Player"
+            "type": "dojo_starter::models::blobert::blobert_6::Blobert_6"
           }
         ],
         "outputs": [],
@@ -484,7 +296,7 @@
   },
   {
     "type": "event",
-    "name": "dojo_starter::models::player::player::Event",
+    "name": "dojo_starter::models::blobert::blobert_6::blobert_6::Event",
     "kind": "enum",
     "variants": []
   }

@@ -125,7 +125,7 @@
         "name": "find_battle",
         "inputs": [
           {
-            "name": "challenger",
+            "name": "challenged",
             "type": "core::starknet::contract_address::ContractAddress"
           },
           {
