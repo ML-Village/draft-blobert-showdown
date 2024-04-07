@@ -168,7 +168,7 @@ const Battle = () => {
       setTimeout(() => {
         const opponentMove =
           pk2.moves[Math.floor(Math.random() * pk2.moves.length)];
-        attack(opponentMove, pk2, selectedPokemon!, "pk1", "Foe ");
+        attack(opponentMove, pk2, selectedPokemon!, "selectedPokemon", "Foe ");
       }, 2000);
     }
 
@@ -207,7 +207,7 @@ const Battle = () => {
   };
 
   const updatePokemonHp = (pokemonId: string, hp: number) => {
-    if (pokemonId === "pk1") {
+    if (pokemonId === "selectedPokemon") {
       setPokemonList((prevList) =>
         prevList.map((pokemon) =>
           pokemon.name === selectedPokemon?.name ? { ...pokemon, hp } : pokemon
@@ -227,7 +227,7 @@ const Battle = () => {
         : false;
     if (loser) {
       setGameOver(true);
-      updatePokemonHp(loser === selectedPokemon ? "pk1" : "pk2", 0);
+      updatePokemonHp(loser === selectedPokemon ? "selectedPokemon" : "pk2", 0);
       setTimeout(() => {
         alert(`GAME OVER: ${loser.name} fainted!`);
         addToBattleLog(`GAME OVER: ${loser.name} fainted!`);
