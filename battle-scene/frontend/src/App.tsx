@@ -75,6 +75,8 @@ const Battle = () => {
   const [commentText, setCommentText] = useState("");
   const [showFightButtons, setShowFightButtons] = useState(true);
   const [showMoveButtons, setShowMoveButtons] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
+  const [showPokemonButtons, setShowPokemonButtons] = useState(false);
 
   useEffect(() => {
     initializeBattle();
@@ -85,6 +87,7 @@ const Battle = () => {
     const spawnPk2 = spawnPokemon();
     setPk1(spawnPk1);
     setPk2(spawnPk2);
+    setSelectedPokemon(spawnPk1);
   };
 
   const spawnPokemon = () => {
@@ -139,7 +142,7 @@ const Battle = () => {
       setTimeout(() => {
         const opponentMove =
           pk2.moves[Math.floor(Math.random() * pk2.moves.length)];
-        attack(opponentMove, pk2, pk1!, "pk1", "Foe ");
+        attack(opponentMove, pk2, selectedPokemon!, "pk1", "Foe ");
       }, 2000);
     }
 
@@ -185,10 +188,15 @@ const Battle = () => {
   };
 
   const checkWinner = () => {
-    const loser = pk1 && pk1.hp <= 0 ? pk1 : pk2 && pk2.hp <= 0 ? pk2 : false;
+    const loser =
+      selectedPokemon && selectedPokemon.hp <= 0
+        ? selectedPokemon
+        : pk2 && pk2.hp <= 0
+        ? pk2
+        : false;
     if (loser) {
       setGameOver(true);
-      updatePokemonHp(loser === pk1 ? "pk1" : "pk2", 0);
+      updatePokemonHp(loser === selectedPokemon ? "pk1" : "pk2", 0);
       setTimeout(() => {
         alert(`GAME OVER: ${loser.name} fainted!`);
         addToBattleLog(`GAME OVER: ${loser.name} fainted!`);
@@ -201,16 +209,32 @@ const Battle = () => {
     setShowMoveButtons(true);
   };
 
+  const handlePokemonClick = () => {
+    setShowFightButtons(false);
+    setShowMoveButtons(false);
+    setShowPokemonButtons(true);
+  };
+
+  const handlePokemonSelect = (pokemon: Pokemon) => {
+    setSelectedPokemon(pokemon);
+    setShowPokemonButtons(false);
+    setShowFightButtons(true);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="flex justify-center gap-8 mb-8">
         <div className="flex flex-col items-center">
-          {pk1 && (
+          {selectedPokemon && (
             <>
               <p className="text-xl font-bold mb-2">
-                HP: {pk1.hp}/{pk1.fullhp}
+                HP: {selectedPokemon.hp}/{selectedPokemon.fullhp}
               </p>
-              <img src={pk1.sprite} alt={pk1.name} className="w-48 h-48" />
+              <img
+                src={selectedPokemon.sprite}
+                alt={selectedPokemon.name}
+                className="w-48 h-48"
+              />
             </>
           )}
         </div>
@@ -238,8 +262,8 @@ const Battle = () => {
               Fight
             </button>
             <button
-              className="bg-gray-400 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed"
-              disabled
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              onClick={handlePokemonClick}
             >
               Pokemon
             </button>
@@ -247,13 +271,26 @@ const Battle = () => {
         )}
         {showMoveButtons && (
           <div className="grid grid-cols-2 gap-4">
-            {pk1?.moves.map((move, index) => (
+            {selectedPokemon?.moves.map((move, index) => (
               <button
                 key={index}
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => attack(move, pk1, pk2!, "pk2", "")}
+                onClick={() => attack(move, selectedPokemon, pk2!, "pk2", "")}
               >
                 {move[0]}
+              </button>
+            ))}
+          </div>
+        )}
+        {showPokemonButtons && (
+          <div className="grid grid-cols-3 gap-4">
+            {pkmList.map((pkm, index) => (
+              <button
+                key={index}
+                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                onClick={() => handlePokemonSelect(new Pokemon(...pkm))}
+              >
+                {pkm[0]}
               </button>
             ))}
           </div>
