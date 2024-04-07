@@ -1,0 +1,299 @@
+[
+  {
+    "type": "impl",
+    "name": "DojoModelImpl",
+    "interface_name": "dojo::model::IDojoModel"
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<core::integer::u8>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::integer::u8>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<core::felt252>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::felt252>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<core::array::Span::<core::felt252>>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::array::Span::<core::felt252>>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "dojo::database::introspect::Struct",
+    "members": [
+      {
+        "name": "name",
+        "type": "core::felt252"
+      },
+      {
+        "name": "attrs",
+        "type": "core::array::Span::<core::felt252>"
+      },
+      {
+        "name": "children",
+        "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<(core::felt252, core::array::Span::<core::felt252>)>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<(core::felt252, core::array::Span::<core::felt252>)>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "dojo::database::introspect::Enum",
+    "members": [
+      {
+        "name": "name",
+        "type": "core::felt252"
+      },
+      {
+        "name": "attrs",
+        "type": "core::array::Span::<core::felt252>"
+      },
+      {
+        "name": "children",
+        "type": "core::array::Span::<(core::felt252, core::array::Span::<core::felt252>)>"
+      }
+    ]
+  },
+  {
+    "type": "enum",
+    "name": "dojo::database::introspect::Ty",
+    "variants": [
+      {
+        "name": "Primitive",
+        "type": "core::felt252"
+      },
+      {
+        "name": "Struct",
+        "type": "dojo::database::introspect::Struct"
+      },
+      {
+        "name": "Enum",
+        "type": "dojo::database::introspect::Enum"
+      },
+      {
+        "name": "Tuple",
+        "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+      },
+      {
+        "name": "Array",
+        "type": "core::integer::u32"
+      }
+    ]
+  },
+  {
+    "type": "interface",
+    "name": "dojo::model::IDojoModel",
+    "items": [
+      {
+        "type": "function",
+        "name": "name",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "unpacked_size",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u32"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "packed_size",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u32"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "layout",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::array::Span::<core::integer::u8>"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "schema",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "dojo::database::introspect::Ty"
+          }
+        ],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "type": "impl",
+    "name": "blobertImpl",
+    "interface_name": "dojo_starter::models::blobert::Iblobert"
+  },
+  {
+    "type": "enum",
+    "name": "dojo_starter::models::types::Type",
+    "variants": [
+      {
+        "name": "Fire",
+        "type": "()"
+      },
+      {
+        "name": "Water",
+        "type": "()"
+      },
+      {
+        "name": "Grass",
+        "type": "()"
+      },
+      {
+        "name": "Wind",
+        "type": "()"
+      },
+      {
+        "name": "Dark",
+        "type": "()"
+      },
+      {
+        "name": "Light",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "dojo_starter::models::types::BlobertTypes",
+    "members": [
+      {
+        "name": "blobert_id",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "blobert_type",
+        "type": "dojo_starter::models::types::Type"
+      }
+    ]
+  },
+  {
+    "type": "enum",
+    "name": "dojo_starter::models::side_effect::SideEffectType",
+    "variants": [
+      {
+        "name": "Burn",
+        "type": "()"
+      },
+      {
+        "name": "Paralyzed",
+        "type": "()"
+      },
+      {
+        "name": "Frozen",
+        "type": "()"
+      },
+      {
+        "name": "Sleep",
+        "type": "()"
+      },
+      {
+        "name": "Poison",
+        "type": "()"
+      },
+      {
+        "name": "Confusion",
+        "type": "()"
+      },
+      {
+        "name": "Flinch",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "dojo_starter::models::blobert::Blobert",
+    "members": [
+      {
+        "name": "blobert_id",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "health",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "blobert_type",
+        "type": "dojo_starter::models::types::BlobertTypes"
+      },
+      {
+        "name": "blobert_side_effect",
+        "type": "dojo_starter::models::side_effect::SideEffectType"
+      }
+    ]
+  },
+  {
+    "type": "interface",
+    "name": "dojo_starter::models::blobert::Iblobert",
+    "items": [
+      {
+        "type": "function",
+        "name": "ensure_abi",
+        "inputs": [
+          {
+            "name": "model",
+            "type": "dojo_starter::models::blobert::Blobert"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "dojo_starter::models::blobert::blobert::Event",
+    "kind": "enum",
+    "variants": []
+  }
+]

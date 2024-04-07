@@ -1,0 +1,70 @@
+kind = "DojoModel"
+class_hash = "0x38f481814b978470dacdbcf2f847076426e3427ff8ecc408fbc6c30aa71ff6c"
+original_class_hash = "0x38f481814b978470dacdbcf2f847076426e3427ff8ecc408fbc6c30aa71ff6c"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_player_player.json"
+name = "dojo_starter::models::player::player"
+
+[[members]]
+name = "address"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "blobert_1"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_2"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_3"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_4"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_5"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_6"
+type = "u8"
+key = false
+
+[[members]]
+name = "name"
+type = "felt252"
+key = false
+
+[[members]]
+name = "profile_pic"
+type = "u8"
+key = false
+
+[[members]]
+name = "total_duels"
+type = "u16"
+key = false
+
+[[members]]
+name = "total_wins"
+type = "u16"
+key = false
+
+[[members]]
+name = "total_losses"
+type = "u16"
+key = false
+
+[[members]]
+name = "timestamp"
+type = "u64"
+key = false

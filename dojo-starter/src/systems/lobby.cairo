@@ -3,6 +3,7 @@ use starknet::{ContractAddress};
 #[dojo::interface]
 trait ILobby<TContractState> {
     fn register_player(self: @TContractState, name: felt252);
+    fn choose_blobert(self: @TContractState,blobert_1: u8, blobert_2: u8, blobert_3:u8, blobert_4:u8, blobert_5: u8, blobert_6:u8);
     fn find_battle(
         self: @TContractState,
         challenger: ContractAddress,
@@ -18,7 +19,7 @@ mod lobby {
     use super::{ILobby};
 
     use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
-    use dojo_starter::models::{pokemon::Pokemon, player::Player, game::Game};
+    use dojo_starter::models::{blobert::Blobert, player::Player, game::Game};
     use dojo_starter::types::game::{GameState};
     use dojo_starter::utils::timestamp::{timestamp};
     use dojo_starter::systems::game_id_generate::{make_seed};
@@ -40,8 +41,21 @@ mod lobby {
             return ();
         }
 
+        fn choose_blobert(self: @ContractState, blobert_1: u8, blobert_2: u8, blobert_3:u8, blobert_4:u8, blobert_5: u8, blobert_6:u8){
+            let caller: ContractAddress = starknet::get_caller_address();
+            let mut player: Player = get!(self.world(), caller, Player);
+            player.blobert_1 = blobert_1;
+            player.blobert_2 = blobert_2;
+            player.blobert_3 = blobert_3;
+            player.blobert_4 = blobert_4;
+            player.blobert_5 = blobert_5;
+            player.blobert_6 = blobert_6;
+            set!(self.world(), (player));
+            return ();
+        }
+
         fn find_battle(
-            self: @TContractState,
+            self: @ContractState,
             challenger: ContractAddress,
             message: felt252,
             wager_coin: u8,

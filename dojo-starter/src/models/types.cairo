@@ -2,10 +2,10 @@ use starknet::ContractAddress;
 
 //this will be the pokemon types
 #[derive(Model, Drop, Serde)]
-struct PokemonTypes {
+struct BlobertTypes {
     #[key]
-    pokemon_id: u8,
-    pokemon_type: Type
+    blobert_id: u8,
+    blobert_type: Type
 }
 
 #[derive(Serde, Copy, Drop, Introspect)]

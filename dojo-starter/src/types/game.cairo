@@ -92,7 +92,7 @@ impl GameStateIntoU8 of Into<GameState, u8> {
 
 impl TryU8IntoGameState of TryInto<u8, GameState> {
     fn try_into(self: u8) -> Option<GameState> {
-        if self == GameState::NULL {
+        if self == GAME_STATE::NULL {
             Option::Some(GameState::Null)
         } else if self == GAME_STATE::AWAITING {
             Option::Some(GameState::Awaiting)

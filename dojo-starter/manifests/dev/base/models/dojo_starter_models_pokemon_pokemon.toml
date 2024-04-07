@@ -1,0 +1,25 @@
+kind = "DojoModel"
+class_hash = "0x20a891e592d0eab5e6bc184ae80f91628f846ef84882ed1725296a697c25bea"
+original_class_hash = "0x20a891e592d0eab5e6bc184ae80f91628f846ef84882ed1725296a697c25bea"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_pokemon_pokemon.json"
+name = "dojo_starter::models::pokemon::pokemon"
+
+[[members]]
+name = "pokemon_id"
+type = "u8"
+key = true
+
+[[members]]
+name = "health"
+type = "u8"
+key = false
+
+[[members]]
+name = "pokemon_type"
+type = "PokemonTypes"
+key = false
+
+[[members]]
+name = "pokemon_side_effect"
+type = "SideEffectType"
+key = false

@@ -3,20 +3,24 @@ mod systems {
     mod game_id_generate;
     mod utils;
     mod lobby;
+    mod battleSystem;
 }
 
 mod types {
     mod game;
+    mod blobert;
+    mod round;
 }
 
 mod models {
     mod moves;
     mod position;
-    mod pokemon;
+    mod blobert;
     mod side_effect;
     mod types;
     mod game;
     mod player;
+    mod round;
 }
 
 mod tests {
