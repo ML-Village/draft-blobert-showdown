@@ -31,7 +31,7 @@ export const BlobberSel = () => {
       " slide={false}>
 
         {/* Burner Cards */}
-        {account?.list().map((a, index) => {
+        {account?.list().reverse().map((a, index) => {
           return(
           <div className="flex justify-center items-center">
             <BlobberCard 
