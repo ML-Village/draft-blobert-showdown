@@ -151,7 +151,7 @@ const Home = () => {
                 {/* Blobberlists and Battles */}
                 <div className="border border-gray-400 rounded-lg 
                 mt-4
-                max-h-[80vh]
+                h-[72vh] flex flex-col overflow-auto
                 ">
                     <ShowDownList />
                 </div>

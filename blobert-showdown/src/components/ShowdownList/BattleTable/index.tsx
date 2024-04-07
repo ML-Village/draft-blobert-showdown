@@ -1,10 +1,13 @@
 import React from 'react';
 import { Table } from "flowbite-react";
 import type { CustomFlowbiteTheme } from "flowbite-react";
+import { sampleWorldBlobbers, 
+    blobbersPath,
+    customBlobertArray, customBlobertInfoObject } from "../../../config/constants";
 
 const customTableTheme: CustomFlowbiteTheme["table"] = {
     root: {
-        base: "w-full text-left text-sm text-gray-500 dark:text-gray-400",
+        base: "w-full text-left text-sm text-gray-500",
         shadow: "absolute left-0 top-0 -z-10 h-full w-full bg-orange-700 drop-shadow-md dark:bg-black",
         wrapper: "relative"
       },
@@ -29,7 +32,8 @@ const customTableTheme: CustomFlowbiteTheme["table"] = {
 
 export const BattleTable = () => {
   return (
-    <Table theme={customTableTheme} hoverable striped className="text-center">
+    <Table theme={customTableTheme} hoverable striped 
+        className="text-center">
             <Table.Head>
             <Table.HeadCell className="text-left">Blobber Name</Table.HeadCell>
 
@@ -46,58 +50,41 @@ export const BattleTable = () => {
             </Table.Head>
 
             <Table.Body className="divide-y">
+        
+                {
+                    sampleWorldBlobbers.map((blobber, index) => (
+                        <Table.Row key={index}>
+                            <Table.Cell className="text-left whitespace-nowrap font-medium">
+                                <div className="flex flex-col items-center justify-center">
+                                    <img className="h-16" src={blobbersPath[blobber.blobber]} />
+                                    <span>{blobber.name}</span>
+                                </div>
+                            </Table.Cell>
 
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob1]]?.path
+                            } alt=""/></Table.Cell>
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob2]]?.path
+                            } alt=""/></Table.Cell>
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob3]]?.path
+                            } alt=""/></Table.Cell>
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob4]]?.path
+                            } alt=""/></Table.Cell>
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob5]]?.path
+                            } alt=""/></Table.Cell>
+                            <Table.Cell><img className="h-10 rounded-md" src={
+                                customBlobertInfoObject[customBlobertArray[blobber.blob6]]?.path
+                            } alt=""/></Table.Cell>
 
-                <Table.Row className="bg-orange-200">
-                    <Table.Cell className="text-left whitespace-nowrap font-medium">
-                    {'1234567890123456789012345678901'}
-                    </Table.Cell>
-
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    
-                    <Table.Cell>88</Table.Cell>
-                    <Table.Cell>88%</Table.Cell>
-
-                </Table.Row>
-
-                <Table.Row className="bg-orange-200">
-                    <Table.Cell className="text-left whitespace-nowrap font-medium">
-                    {'1234567890123456789012345678901'}
-                    </Table.Cell>
-
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    
-                    <Table.Cell>88</Table.Cell>
-                    <Table.Cell>88%</Table.Cell>
-
-                </Table.Row>
-
-                <Table.Row className="bg-orange-200">
-                    <Table.Cell className="text-left whitespace-nowrap font-medium">
-                    {'1234567890123456789012345678901'}
-                    </Table.Cell>
-
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    <Table.Cell><img className="h-10" src="/assets/pc.png" alt=""/></Table.Cell>
-                    
-                    <Table.Cell>88</Table.Cell>
-                    <Table.Cell>88%</Table.Cell>
-
-                </Table.Row>
+                            <Table.Cell>{blobber.totalGames}</Table.Cell>
+                            <Table.Cell>{blobber.winRate}</Table.Cell>
+                        </Table.Row>
+                    ))
+                }
 
             </Table.Body>
         </Table>

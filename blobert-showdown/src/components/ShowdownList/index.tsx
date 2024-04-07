@@ -53,7 +53,7 @@ const customTabsTheme: CustomFlowbiteTheme["tabs"] = {
     }
   },
   tabitemcontainer: {
-    base: "",
+    base: "flex-grow",
     styles: {
       default: "",
       underline: "",
@@ -66,8 +66,12 @@ const customTabsTheme: CustomFlowbiteTheme["tabs"] = {
 
 export const ShowDownList = () => {
   return (
-    <Tabs theme={customTabsTheme} aria-label="Showdowns List" style="underline">
-        <Tabs.Item active title="World Blobbers" icon={FaUserNinja}>
+    <Tabs theme={customTabsTheme} aria-label="Showdowns List" style="underline"
+    className=" h-full"
+    >
+        <Tabs.Item active title="World Blobbers" icon={FaUserNinja}
+        className=""
+        >
             <div className="overflow-x-auto">
                   <BattleTable />
                 </div>
@@ -80,15 +84,15 @@ export const ShowDownList = () => {
         </Tabs.Item>
 
         <Tabs.Item title="Live Showdowns" icon={MdLiveTv}>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto overflow-y-auto">
                       <BattleTable />
                     </div>
         </Tabs.Item>
 
         <Tabs.Item title="Past Showdowns" icon={MdHistoryEdu}>
-            <div className="overflow-x-auto">
-                      <BattleTable />
-                    </div>
+          <div className="overflow-x-auto overflow-y-auto">
+                    <BattleTable />
+                  </div>
         </Tabs.Item>
 
 
