@@ -14,7 +14,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
     const {account} = useDojo();
     const [openModal, setOpenModal] = useState(false);
     const [targetSlot, setTargetSlot] = useState(0);
-    const [selectedBlobert, setSelectedBlobert] = useState(customBlobertArray[0]);
+    const [selectedBlobert, setSelectedBlobert] = useState("nobody");
 
     const [slotImagePath, setSlotImagePath] = useState({
       0: "/assets/pc.png",
@@ -137,7 +137,7 @@ export const BlobberCard = ({blobbersIndex, burnerAddress, selected} :
                             mx-2 my-2
                             ">
                               <img className={`h-20 rounded-lg
-
+                                cursor-pointer
                               ${selectedBlobert==blobert?`border-8 border-orange-700`: `border`}
                               hover:border-4 hover:border-yellow-400
                               
