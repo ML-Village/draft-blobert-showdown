@@ -13,7 +13,6 @@ struct Player {
     blobert_5: u8,
     blobert_6: u8,
     name: felt252,
-    profile_pic: u8,
     total_duels: u16,
     total_wins: u16,
     total_losses: u16,

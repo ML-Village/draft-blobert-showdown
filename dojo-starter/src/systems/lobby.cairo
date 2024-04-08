@@ -37,7 +37,19 @@ mod lobby {
                 player.timestamp = get_block_timestamp();
             }
 
+            player.address = caller;
             player.name = name;
+            player.blobert_1 = 0;
+            player.blobert_2 = 0;
+            player.blobert_3 = 0;
+            player.blobert_4 = 0;
+            player.blobert_5 = 0;
+            player.blobert_6 = 0;
+            player.total_duels = 0;
+            player.total_wins = 0;
+            player.total_losses = 0;
+            player.timestamp = get_block_timestamp();
+
             set!(self.world(), (player));
             return ();
         }
