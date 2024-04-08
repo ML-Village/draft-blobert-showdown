@@ -24,7 +24,7 @@ mod lobby {
     use dojo_starter::utils::timestamp::{timestamp};
     use dojo_starter::systems::game_id_generate::{make_seed};
     use dojo_starter::systems::utils::{zero_address};
-    use dojo_starter::models::blobert::{blobert_1::Blobert_1,blobert_2::Blobert_2,blobert_3::Blobert_3,blobert_4::Blobert_4,blobert_5::Blobert_5,blobert_6::Blobert_6};
+    // use dojo_starter::models::blobert::{blobert_1::Blobert_1,blobert_2::Blobert_2,blobert_3::Blobert_3,blobert_4::Blobert_4,blobert_5::Blobert_5,blobert_6::Blobert_6};
 
     #[abi(embed_v0)]
     impl LobbyImpl of ILobby<ContractState> {
@@ -37,7 +37,19 @@ mod lobby {
                 player.timestamp = get_block_timestamp();
             }
 
+            player.address = caller;
             player.name = name;
+            player.blobert_1 = 0;
+            player.blobert_2 = 0;
+            player.blobert_3 = 0;
+            player.blobert_4 = 0;
+            player.blobert_5 = 0;
+            player.blobert_6 = 0;
+            player.total_duels = 0;
+            player.total_wins = 0;
+            player.total_losses = 0;
+            player.timestamp = get_block_timestamp();
+
             set!(self.world(), (player));
             return ();
         }
@@ -45,18 +57,18 @@ mod lobby {
         fn choose_blobert(self: @ContractState, blobert_1: u8, blobert_2: u8, blobert_3:u8, blobert_4:u8, blobert_5: u8, blobert_6:u8){
             let caller: ContractAddress = starknet::get_caller_address();
             let mut player: Player = get!(self.world(), caller, Player);
-            let mut blobertmon_1: Blobert_1 = get!(self.world(), (caller, blobert_1),  Blobert_1);
-            let mut blobertmon_2: Blobert_2 = get!(self.world(), (caller, blobert_2), Blobert_2);
-            let mut blobertmon_3: Blobert_3 = get!(self.world(), (caller, blobert_3), Blobert_3);
-            let mut blobertmon_4: Blobert_4 = get!(self.world(), (caller, blobert_4), Blobert_4);
-            let mut blobertmon_5: Blobert_5 = get!(self.world(), (caller, blobert_5), Blobert_5);
-            let mut blobertmon_6: Blobert_6 = get!(self.world(), (caller, blobert_6), Blobert_6);
-            player.blobert_1 = blobertmon_1;
-            player.blobert_2 = blobertmon_2;
-            player.blobert_3 = blobertmon_3;
-            player.blobert_4 = blobertmon_4;
-            player.blobert_5 = blobertmon_5;
-            player.blobert_6 = blobertmon_6;
+            // let mut blobertmon_1: Blobert_1 = get!(self.world(), (caller, blobert_1),  Blobert_1);
+            // let mut blobertmon_2: Blobert_2 = get!(self.world(), (caller, blobert_2), Blobert_2);
+            // let mut blobertmon_3: Blobert_3 = get!(self.world(), (caller, blobert_3), Blobert_3);
+            // let mut blobertmon_4: Blobert_4 = get!(self.world(), (caller, blobert_4), Blobert_4);
+            // let mut blobertmon_5: Blobert_5 = get!(self.world(), (caller, blobert_5), Blobert_5);
+            // let mut blobertmon_6: Blobert_6 = get!(self.world(), (caller, blobert_6), Blobert_6);
+            player.blobert_1 = blobert_1;
+            player.blobert_2 = blobert_2;
+            player.blobert_3 = blobert_3;
+            player.blobert_4 = blobert_4;
+            player.blobert_5 = blobert_5;
+            player.blobert_6 = blobert_6;
             set!(self.world(), (player));
             return ();
         }
