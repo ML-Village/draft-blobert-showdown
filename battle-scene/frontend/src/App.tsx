@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import bread from "./assets/blobert/breadbert.png";
+import zeus from "./assets/blobert/delbert.png";
+import cat from "./assets/blobert/sylbert.png";
 
 // Pokemon class
 class Pokemon {
@@ -26,44 +29,44 @@ class Pokemon {
 const pkmList: [string, string, number, [string, string, number, number?][]][] =
   [
     [
-      "Charizard",
-      "https://img.pokemondb.net/sprites/black-white/normal/charizard.png",
+      "Breadbert",
+      `${bread}`,
       360,
       [
-        ["Flamethrower", "fire", 95, 0.95],
-        ["Dragon Claw", "dragon", 80, 0.95],
-        ["Air slash", "fly", 75, 0.85],
-        ["Slash", "normal", 70],
+        ["UseJam", "fire", 95, 0.95],
+        ["Bless", "dragon", 80, 0.95],
+        ["Toastem", "fly", 75, 0.85],
+        ["Bread Slam", "normal", 70],
       ],
     ],
     [
-      "Blastoise",
-      "https://img.pokemondb.net/sprites/black-white/normal/blastoise.png",
+      "Delbert",
+      `${zeus}`,
       362,
       [
-        ["Surf", "water", 90, 0.95],
-        ["Crunch", "normal", 80, 0.95],
-        ["Ice punch", "ice", 75, 0.95],
+        ["Lightning bolt", "water", 90, 0.95],
+        ["Slash", "normal", 80, 0.95],
+        ["Cut", "ice", 75, 0.95],
         ["Flash cannon", "steel", 80, 0.95],
       ],
     ],
     [
-      "Venusaur",
-      "https://img.pokemondb.net/sprites/black-white/normal/venusaur-f.png",
+      "Sylbert",
+      `${cat}`,
       364,
       [
-        ["Petal Blizzard", "grass", 90, 0.95],
-        ["Sludge bomb", "poison", 90, 0.95],
-        ["Earthquake", "ground", 100, 0.95],
-        ["Body Slam", "normal", 85, 0.95],
+        ["Meow", "grass", 90, 0.95],
+        ["Sneaky Attack", "poison", 90, 0.95],
+        ["Hop Attack", "ground", 100, 0.95],
+        ["Slash", "normal", 85, 0.95],
       ],
     ],
   ];
 
 const typeMatch: Record<string, [string[], string[], string[]]> = {
-  Charizard: [["ground"], ["water", "rock"], ["fire", "grass", "steel"]],
-  Blastoise: [[""], ["grass"], ["fire", "water"]],
-  Venusaur: [["poison"], ["fire", "fly", "ice", "steel"], ["grass", "water"]],
+  Breadbert: [["ground"], ["water", "rock"], ["fire", "grass", "steel"]],
+  Delbert: [[""], ["grass"], ["fire", "water"]],
+  Sylbert: [["poison"], ["fire", "fly", "ice", "steel"], ["grass", "water"]],
 };
 
 // Battle component
@@ -236,81 +239,93 @@ const OnePlayer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="flex justify-center gap-8 mb-8">
-        <div className="flex flex-col items-center">
-          {selectedPokemon && (
-            <>
-              <p className="text-xl font-bold mb-2">
-                HP: {selectedPokemon.hp}/{selectedPokemon.fullhp}
-              </p>
-              <img
-                src={selectedPokemon.sprite}
-                alt={selectedPokemon.name}
-                className="w-48 h-48"
-              />
-            </>
-          )}
-        </div>
-        <div className="flex flex-col items-center">
-          {pk2 && (
-            <>
-              <p className="text-xl font-bold mb-2">
-                HP: {pk2.hp}/{pk2.fullhp}
-              </p>
-              <img src={pk2.sprite} alt={pk2.name} className="w-48 h-48" />
-            </>
-          )}
-        </div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow-md mb-8 w-96">
-        <p className="text-lg font-semibold mb-2">{commentText}</p>
-      </div>
+    <div className="flex gap-32 items-start justify-center min-h-screen bg-[#FFF2E1] pt-40 text-[#481E14]">
       <div className="flex flex-col items-center">
-        {showFightButtons && (
-          <div className="flex gap-4 mb-4">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              onClick={handleFightClick}
-            >
-              Fight
-            </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              onClick={handlePokemonClick}
-            >
-              Pokemon
-            </button>
+        <div className="flex justify-center gap-8 mb-8">
+          <div className="flex flex-col items-center">
+            {selectedPokemon && (
+              <>
+                <p className="text-xl font-bold mb-2">
+                  HP: {selectedPokemon.hp}/{selectedPokemon.fullhp}
+                </p>
+                <img
+                  src={selectedPokemon.sprite}
+                  alt={selectedPokemon.name}
+                  className="w-48 h-48"
+                />
+              </>
+            )}
           </div>
-        )}
-        {showMoveButtons && (
-          <div className="grid grid-cols-2 gap-4">
-            {selectedPokemon?.moves.map((move, index) => (
+          <div className="flex flex-col items-center">
+            {pk2 && (
+              <>
+                <p className="text-xl font-bold mb-2">
+                  HP: {pk2.hp}/{pk2.fullhp}
+                </p>
+                <img src={pk2.sprite} alt={pk2.name} className="w-48 h-48" />
+              </>
+            )}
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded-lg shadow-md mb-8 w-96">
+          <p className="text-lg font-semibold mb-2 h-4">{commentText}</p>
+        </div>
+        <div className="flex flex-col items-center">
+          {showFightButtons && (
+            <div className="flex gap-4 mb-4">
               <button
-                key={index}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => attack(move, selectedPokemon, pk2!, "pk2", "")}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                onClick={handleFightClick}
               >
-                {move[0]}
+                Fight
               </button>
-            ))}
-          </div>
-        )}
-        {showPokemonButtons && (
-          <div className="grid grid-cols-3 gap-4">
-            {pokemonList.map((pokemon, index) => (
               <button
-                key={index}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
-                onClick={() => handlePokemonSelect(pokemon.name)}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                onClick={handlePokemonClick}
               >
-                {pokemon.name}
+                Blobert
               </button>
-            ))}
-          </div>
-        )}
+            </div>
+          )}
+          {showMoveButtons && (
+            <div className="grid grid-cols-2 gap-4">
+              {selectedPokemon?.moves.map((move, index) => (
+                <button
+                  key={index}
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => attack(move, selectedPokemon, pk2!, "pk2", "")}
+                >
+                  {move[0]}
+                </button>
+              ))}
+            </div>
+          )}
+          {showPokemonButtons && (
+            <div className="grid grid-cols-3 gap-4">
+              {pokemonList.map((pokemon, index) => (
+                <button
+                  key={index}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handlePokemonSelect(pokemon.name)}
+                >
+                  {pokemon.name}
+                </button>
+              ))}
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                probert
+              </button>
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                Starkbert
+              </button>
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                Udbert
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="bg-white p-4 rounded-lg shadow-md mt-8">
+
+      <div className="bg-white p-4 rounded-lg shadow-md mt-8 h-80 w-96 overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">Battle Log</h2>
         {battleLog.map((message, index) => (
           <p key={index} className="mb-2">

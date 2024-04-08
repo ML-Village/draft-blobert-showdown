@@ -6,7 +6,7 @@ import OnePlayer from './App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-   {/* <OnePlayer/> */}
-   <TwoPlayer/>
+   <OnePlayer/>
+   {/* <TwoPlayer/> */}
   </React.StrictMode>,
 )
