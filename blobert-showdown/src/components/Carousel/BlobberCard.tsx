@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { blobbersPath } from "../../config/constants/blobbers";
 import { useDojo } from "../../dojo/useDojo";
-import { Button, Modal, Progress } from "flowbite-react";
+import { Modal, Progress } from "flowbite-react";
 import {
   customBlobertArray,
   customBlobertInfoObject,
@@ -11,6 +11,9 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
 import { Entity } from "@dojoengine/recs";
 import { useComponentValue } from "@dojoengine/react";
+import { feltToString } from "@/utils";
+import { Burner } from "@dojoengine/create-burner";
+import { AccountInterface } from "starknet";
 
 const customModalTheme: CustomFlowbiteTheme["modal"] = {
   root: {
@@ -41,10 +44,12 @@ const customModalTheme: CustomFlowbiteTheme["modal"] = {
 };
 
 export const BlobberCard = ({
+  accountTarget,
   blobbersIndex,
   burnerAddress,
   selected,
 }: {
+  accountTarget: Burner;
   blobbersIndex: number;
   burnerAddress: string;
   selected: boolean;
@@ -58,38 +63,85 @@ export const BlobberCard = ({
 
    // entity id we are syncing
    const entityId = getEntityIdFromKeys([
-    BigInt(account?.account.address),
+    BigInt(account.account.address),
   ]) as Entity;
-
-  console.log(`Entity ID: ${entityId} , BurnerAddress: ${account?.account.address}`);
 
   // get current component values
   const player = useComponentValue(Player, entityId);
-  console.log(player)
+  console.log(player);
 
   const [openModal, setOpenModal] = useState(false);
   const [targetSlot, setTargetSlot] = useState(0);
   const [selectedBlobert, setSelectedBlobert] = useState("notblobby");
 
   const [slotImagePath, setSlotImagePath] = useState({
-    0: "/assets/pc.png",
-    1: "/assets/pc.png",
-    2: "/assets/pc.png",
-    3: "/assets/pc.png",
-    4: "/assets/pc.png",
-    5: "/assets/pc.png",
+    0: {path:"/assets/pc.png", index:0},
+    1: {path:"/assets/pc.png", index:0},
+    2: {path:"/assets/pc.png", index:0},
+    3: {path:"/assets/pc.png", index:0},
+    4: {path:"/assets/pc.png", index:0},
+    5: {path:"/assets/pc.png", index:0},
   });
 
   const setBlobertToSlot = (blobert: string, slot: number) => {
     //console.log(`Setting ${blobert} to slot ${slot}`);
     setSlotImagePath({
       ...slotImagePath,
-      [slot]: customBlobertInfoObject[blobert]?.path,
+      [slot]: {path: customBlobertInfoObject[blobert]?.path, index: customBlobertArray.indexOf(blobert)},
     });
   };
 
   const nameInputRef = useRef(null); // Create a ref for the input field
   const [nameInputValue, setNameInputValue] = useState('');
+
+  useEffect(() => {
+    if (player === undefined) return;
+    if (player.name === undefined) return;
+
+    if (player.blobert_1 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        0: {path: customBlobertInfoObject[customBlobertArray[player.blobert_1]]?.path, index: player.blobert_1},
+      })
+    }
+
+    if(player.blobert_2 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        1: {path: customBlobertInfoObject[customBlobertArray[player.blobert_2]]?.path, index: player.blobert_2},
+      })
+    }
+
+    if(player.blobert_3 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        2: {path: customBlobertInfoObject[customBlobertArray[player.blobert_3]]?.path, index: player.blobert_3},
+      })
+    }
+
+    if(player.blobert_4 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        3: {path: customBlobertInfoObject[customBlobertArray[player.blobert_4]]?.path, index: player.blobert_4},
+      })
+    }
+
+    if(player.blobert_5 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        4: {path: customBlobertInfoObject[customBlobertArray[player.blobert_5]]?.path, index: player.blobert_5},
+      })
+    }
+
+    if(player.blobert_6 >0) {
+      setSlotImagePath({
+        ...slotImagePath,
+        5: {path: customBlobertInfoObject[customBlobertArray[player.blobert_6]]?.path, index: player.blobert_6},
+      })
+    }
+
+    //setNameInputValue(player.name);
+  }, [player, burnerAddress]);
 
   const handleNameInputChange = (e) => {
     // Update the input value
@@ -100,6 +152,19 @@ export const BlobberCard = ({
     // Register the name
     console.log(`Registering name: ${nameInputValue}`);
     register_player(account.account, nameInputValue);
+  }
+
+  const handleRegisterLineUp = () => {
+    // Register the lineup
+    console.log(`Registering lineup: ${slotImagePath}`);
+    choose_blobert(
+      account.account,
+      slotImagePath[0].index, 
+      slotImagePath[1].index, 
+      slotImagePath[2].index, 
+      slotImagePath[3].index, 
+      slotImagePath[4].index, 
+      slotImagePath[5].index);
   }
 
   return (
@@ -130,6 +195,7 @@ export const BlobberCard = ({
           <label className="mr-2 flex justify-center items-center text-white">
             Blobber Name
           </label>
+
           <input
             className="flex-grow rounded-lg mx-2 text-gray-800 bg-slate-300
            focus:no-outline focus:ring-2 focus:ring-offset-transparent 
@@ -143,14 +209,18 @@ export const BlobberCard = ({
             onChange={handleNameInputChange}
             ref={nameInputRef}
             onClick={()=> nameInputRef.current.focus()}
+            disabled={player!==undefined}
           />
           <button
-            className="border border-white rounded-lg
-              px-2 text-white bg-orange-800 hover:bg-orange-600
-              "
+            className={`border border-white rounded-lg
+              px-2 text-white 
+              ${player===undefined?`bg-orange-800 hover:bg-orange-600`:
+              `bg-gray-800`}
+              `}
             onClick={handleRegisterName}
+            disabled={player!==undefined}
           >
-            Register Name
+            {player===undefined?`Register Name`:`Blobber Registered`}
           </button>
         </div>
 
@@ -180,12 +250,12 @@ export const BlobberCard = ({
         {/* blobert lineup */}
         <div className="flex mb-2 mx-2 items-center justify-between">
           <div className="flex grid-cols-6 gap-1 justify-between w-full mx-1 px-1">
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
-            <img className="h-20 border rounded-lg" src="/assets/pc.png" />
+            <img className="h-20 border rounded-lg" src={slotImagePath[0].path} />
+            <img className="h-20 border rounded-lg" src={slotImagePath[1].path} />
+            <img className="h-20 border rounded-lg" src={slotImagePath[2].path} />
+            <img className="h-20 border rounded-lg" src={slotImagePath[3].path} />
+            <img className="h-20 border rounded-lg" src={slotImagePath[4].path} />
+            <img className="h-20 border rounded-lg" src={slotImagePath[5].path} />
           </div>
 
           {/* configure lineup */}
@@ -370,7 +440,7 @@ export const BlobberCard = ({
                         <img
                           className={`${targetSlot == index ? `border-4 border-orange-700` : `border`} 
                                   h-20 rounded-lg cursor-pointer`}
-                          src={slotImagePath[index]}
+                          src={slotImagePath[index].path}
                           onClick={() => {
                             setTargetSlot(index);
                           }}
@@ -389,7 +459,7 @@ export const BlobberCard = ({
                             bg-red-700 hover:bg-red-300 hover:text-orange-900 
                             hover:border-orange-900 hover:border-2
                             "
-                  onClick={() => {}}
+                  onClick={handleRegisterLineUp}
                 >
                   Confirm LineUp
                 </button>

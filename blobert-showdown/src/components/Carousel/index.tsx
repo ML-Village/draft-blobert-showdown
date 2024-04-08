@@ -36,6 +36,7 @@ export const BlobberSel = () => {
           return(
           <div className="flex justify-center items-center" key={`blobbercard-${index}`}>
             <BlobberCard 
+              accountTarget={a}
               blobbersIndex={index}
               burnerAddress={
               a ? a.address : ""} 
