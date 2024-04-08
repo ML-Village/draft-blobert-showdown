@@ -1,6 +1,6 @@
 kind = "DojoModel"
-class_hash = "0x3ef0fad52f301ed625ce2832dcfb5b5f3c00b4cee97c69c4479adce02f121f9"
-original_class_hash = "0x3ef0fad52f301ed625ce2832dcfb5b5f3c00b4cee97c69c4479adce02f121f9"
+class_hash = "0x510198e179dece7e7612423595e6127d5632c8b6254fddf6f701236e180be3a"
+original_class_hash = "0x510198e179dece7e7612423595e6127d5632c8b6254fddf6f701236e180be3a"
 abi = "manifests/dev/abis/base/models/dojo_starter_models_player_player.json"
 name = "dojo_starter::models::player::player"
 
@@ -11,42 +11,37 @@ key = true
 
 [[members]]
 name = "blobert_1"
-type = "Blobert_1"
+type = "u8"
 key = false
 
 [[members]]
 name = "blobert_2"
-type = "Blobert_2"
+type = "u8"
 key = false
 
 [[members]]
 name = "blobert_3"
-type = "Blobert_3"
+type = "u8"
 key = false
 
 [[members]]
 name = "blobert_4"
-type = "Blobert_4"
+type = "u8"
 key = false
 
 [[members]]
 name = "blobert_5"
-type = "Blobert_5"
+type = "u8"
 key = false
 
 [[members]]
 name = "blobert_6"
-type = "Blobert_6"
+type = "u8"
 key = false
 
 [[members]]
 name = "name"
 type = "felt252"
-key = false
-
-[[members]]
-name = "profile_pic"
-type = "u8"
 key = false
 
 [[members]]

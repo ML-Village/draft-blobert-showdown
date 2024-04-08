@@ -27,6 +27,7 @@ mod models {
     mod game;
     mod player;
     mod round;
+    mod session;
 }
 
 mod tests {

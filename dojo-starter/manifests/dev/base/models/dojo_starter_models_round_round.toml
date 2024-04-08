@@ -1,6 +1,6 @@
 kind = "DojoModel"
-class_hash = "0x38bb48220575d06edf1fce3194b72eb3854667d2db08a1497200bf38b7b973f"
-original_class_hash = "0x38bb48220575d06edf1fce3194b72eb3854667d2db08a1497200bf38b7b973f"
+class_hash = "0x666688f77c24d5fd9eb3e2c218946e7f6eadc8e00198863f8bf13015f2f867f"
+original_class_hash = "0x666688f77c24d5fd9eb3e2c218946e7f6eadc8e00198863f8bf13015f2f867f"
 abi = "manifests/dev/abis/base/models/dojo_starter_models_round_round.json"
 name = "dojo_starter::models::round::round"
 
@@ -17,4 +17,14 @@ key = true
 [[members]]
 name = "state"
 type = "u8"
+key = false
+
+[[members]]
+name = "move_a"
+type = "Moves"
+key = false
+
+[[members]]
+name = "move_b"
+type = "Moves"
 key = false

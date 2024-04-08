@@ -1,3 +1,5 @@
+use dojo_starter::models::moves::Moves;
+
 #[derive(Model, Copy, Drop, Serde)]
 struct Round {
     #[key]
@@ -6,6 +8,6 @@ struct Round {
     round_number: u8,
     //---------------
     state: u8,      // actually a RoundState
-    // move_a: Move,   // duelist_a shot
-    // move_b: Move,   // duelist_b shot
+    move_a: Moves,   // duelist_a shot
+    move_b: Moves,   // duelist_b shot
 }
