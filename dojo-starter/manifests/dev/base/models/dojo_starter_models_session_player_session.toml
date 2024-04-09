@@ -1,0 +1,55 @@
+kind = "DojoModel"
+class_hash = "0x15a4bffe7e584ad047123f3e277631467eaaa2f109b57b5a451fc417428ab4f"
+original_class_hash = "0x15a4bffe7e584ad047123f3e277631467eaaa2f109b57b5a451fc417428ab4f"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_session_player_session.json"
+name = "dojo_starter::models::session::player_session"
+
+[[members]]
+name = "game_id"
+type = "u128"
+key = true
+
+[[members]]
+name = "player_address"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "player"
+type = "Player"
+key = false
+
+[[members]]
+name = "current_blobert"
+type = "u8"
+key = false
+
+[[members]]
+name = "blobert_1"
+type = "Blobert_1"
+key = false
+
+[[members]]
+name = "blobert_2"
+type = "Blobert_2"
+key = false
+
+[[members]]
+name = "blobert_3"
+type = "Blobert_3"
+key = false
+
+[[members]]
+name = "blobert_4"
+type = "Blobert_4"
+key = false
+
+[[members]]
+name = "blobert_5"
+type = "Blobert_5"
+key = false
+
+[[members]]
+name = "blobert_6"
+type = "Blobert_6"
+key = false

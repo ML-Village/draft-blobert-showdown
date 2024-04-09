@@ -18,4 +18,3 @@ struct Player {
     total_losses: u16,
     timestamp: u64, // Unix time, 1st registered
 }
-

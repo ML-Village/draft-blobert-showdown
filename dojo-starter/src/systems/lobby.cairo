@@ -29,6 +29,7 @@ mod lobby {
     #[abi(embed_v0)]
     impl LobbyImpl of ILobby<ContractState> {
         fn register_player(self: @ContractState, name: felt252) {
+            //TODO check if the name existed before
             let caller: ContractAddress = starknet::get_caller_address();
 
             let mut player: Player = get!(self.world(), caller, Player);
