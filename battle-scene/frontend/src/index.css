@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sprite-animation {
+    width: 128px;
+    height: 128px;
+    background-image: var(--sprite-sheet-url);
+    background-repeat: no-repeat;
+    background-size: 512px 128px; /* Adjust this based on your sprite sheet dimensions */
+  }
+  
+  @keyframes sprite-animation {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -512px 0; /* Adjust this based on your sprite sheet dimensions */
+    }
+  }
+  
+  .mirror-image {
+    transform: scaleX(-1);
+  }
+  
+  .projectile-animation {
+    width: 64px;
+    height: 64px;
+    background-image: var(--sprite-sheet-url);
+    background-repeat: no-repeat;
+    background-size: 256px 64px; /* Adjust this based on your sprite sheet dimensions */
+  }
+  
+  @keyframes projectile-animation {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -256px 0; /* Adjust this based on your sprite sheet dimensions */
+    }
+  }
