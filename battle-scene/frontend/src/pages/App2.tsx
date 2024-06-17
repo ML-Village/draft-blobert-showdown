@@ -30,7 +30,7 @@ const pkmList: [string, string, number, [string, string, number, number?][]][] =
   [
     [
       "Charizard",
-      "nftinfluenza-FRONT-Sheet.png",
+      "nftinfluenza.png",
       360,
       [
         ["Flamethrower", "fire", 95, 0.95],
@@ -41,7 +41,7 @@ const pkmList: [string, string, number, [string, string, number, number?][]][] =
     ],
     [
       "Blastoise",
-      "gameinfluenza-FRONT-Sheet.png",
+      "gameinfluenza.png",
       362,
       [
         ["Surf", "water", 90, 0.95],
@@ -52,7 +52,7 @@ const pkmList: [string, string, number, [string, string, number, number?][]][] =
     ],
     [
       "Venusaur",
-      "airdropinfluenza-REAR-Sheet.png",
+      "airdropinfluenza.png",
       364,
       [
         ["Petal Blizzard", "grass", 90, 0.95],
@@ -80,6 +80,8 @@ const TwoPlayer = () => {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPokemonButtons, setShowPokemonButtons] = useState(false);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [player2PokemonList, setPlayer2PokemonList] = useState<Pokemon[]>([]);
+
 
   const [player2Pokemon, setPlayer2Pokemon] = useState<Pokemon | null>(null);
   const [player2ShowFightButtons, setPlayer2ShowFightButtons] = useState(true);
@@ -185,10 +187,23 @@ const TwoPlayer = () => {
   }, []);
 
   const initializeBattle = () => {
-    const pokemonList = pkmList.map((pkm) => new Pokemon(...pkm));
-    setPokemonList(pokemonList);
-    setSelectedPokemon(pokemonList[2]);
-    setPlayer2Pokemon(pokemonList[0]);
+    const player1 = pkmList.map((pkm) => new Pokemon(...pkm));
+    const player2 = pkmList.map((pkm) => new Pokemon(...pkm));
+  
+    // Modify sprites for player 1 (rear) and player 2 (front)
+    player1.forEach(pokemon => {
+      pokemon.sprite = pokemon.sprite.replace(".png", "-REAR.png");
+    });
+  
+    player2.forEach(pokemon => {
+      pokemon.sprite = pokemon.sprite.replace(".png", "-FRONT.png");
+    });
+  
+    setPokemonList(player1);
+    setPlayer2PokemonList(player2);
+  
+    setSelectedPokemon(player1[2]); // Initialize player 1's selected Pokemon
+    setPlayer2Pokemon(player2[0]);  // Initialize player 2's selected Pokemon
   };
 
   // const spawnPokemon = () => {
@@ -239,7 +254,7 @@ const TwoPlayer = () => {
   };
 
   const handlePlayer2PokemonSelect = (pokemonName: string) => {
-    const selectedPokemon = pokemonList.find(
+    const selectedPokemon = player2PokemonList.find(
       (pokemon) => pokemon.name === pokemonName
     );
     if (selectedPokemon) {
