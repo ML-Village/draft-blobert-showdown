@@ -374,51 +374,46 @@ const TwoPlayer = () => {
   return (
     <>
       <div className="h-screen bg">
-        <div className="flex justify-between">
-          <div className="flex flex-col w-[1050px]">
-            <div>
-              <img src="forest.png" alt="" />
-              <div className="absolute top-64 left-60">
-                {selectedPokemon && (
-                  <>
-                    <p className="text-xl font-bold mb-2">
-                      HP: {selectedPokemon.hp}/{selectedPokemon.fullhp}
-                    </p>
-                    <motion.div animate={charizardControls}>
-                      {/* <img
-                        src={selectedPokemon.sprite}
-                        alt={selectedPokemon.name}
-                        className="w-48 h-48"
-                      /> */}
-                      <SpriteAnimation
-                        animationDuration={0.4}
-                        frameCount={4}
-                        spriteSheetUrl={selectedPokemon.sprite}
-                      />
-                    </motion.div>
-                  </>
-                )}
+        <div className="flex justify-around">
+          <div className="flex flex-col">
+            <div className="relative">
+              <img src="forest.png " alt="" />
+              <div className="absolute inset-0 flex items-center justify-around">
+                <div className=" mt-44 ml-24">
+                  {selectedPokemon && (
+                    <>
+                      <p className="text-xl font-bold mb-2">
+                        HP: {selectedPokemon.hp}/{selectedPokemon.fullhp}
+                      </p>
+                      <motion.div animate={charizardControls}>
+                        <SpriteAnimation
+                          animationDuration={0.4}
+                          frameCount={4}
+                          spriteSheetUrl={selectedPokemon.sprite}
+                        />
+                      </motion.div>
+                    </>
+                  )}
+                </div>
+                <div className=" mb-24 mr-40">
+                  {player2Pokemon && (
+                    <>
+                      <p className="text-xl font-bold mb-2">
+                        HP: {player2Pokemon.hp}/{player2Pokemon.fullhp}
+                      </p>
+                      <motion.div animate={blastoiseControls}>
+                        <SpriteAnimation
+                          animationDuration={0.4}
+                          frameCount={4}
+                          spriteSheetUrl={player2Pokemon.sprite}
+                        />
+                      </motion.div>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="absolute top-32 left-[38rem]">
-                {player2Pokemon && (
-                  <>
-                    <p className="text-xl font-bold mb-2">
-                      HP: {player2Pokemon.hp}/{player2Pokemon.fullhp}
-                    </p>
-                    <motion.div animate={blastoiseControls}>
-                      {/* <img
-                        src={player2Pokemon.sprite}
-                        alt={player2Pokemon.name}
-                        className="w-48 h-48"
-                      /> */}
-                      <SpriteAnimation
-                        animationDuration={0.4}
-                        frameCount={4}
-                        spriteSheetUrl={player2Pokemon.sprite}
-                      />
-                    </motion.div>
-                  </>
-                )}
+              <div className="absolute left-0 bottom-0 bg-white p-4 rounded-lg shadow-md w-96 h-14">
+                <p className="text-lg font-semibold mb-2">{commentText}</p>
               </div>
               {isProjectileVisible && (
                 <motion.div
@@ -430,7 +425,6 @@ const TwoPlayer = () => {
                     transform: `rotate(${projectileRotation}deg)`,
                   }}
                 >
-                  {/* Pass the isFlipped prop to ProjectileAnimation */}
                   <ProjectileAnimation
                     animationDuration={0.4}
                     frameCount={4}
@@ -440,9 +434,6 @@ const TwoPlayer = () => {
                   />
                 </motion.div>
               )}
-              <div className=" absolute bottom-72 bg-white p-4 rounded-lg shadow-md w-96 h-14">
-                <p className="text-lg font-semibold mb-2">{commentText}</p>
-              </div>
             </div>
 
             <div className="flex justify-between mt-1">
@@ -627,7 +618,7 @@ const TwoPlayer = () => {
             </div>
           </div>
 
-          <div className="w-[400px] h-[500px] bg-white p-4 rounded-lg shadow-md mt-8 mr-5 overflow-y-auto">
+          <div className="w-[25rem] h-[31.25rem] bg-white p-4 rounded-lg shadow-md mt-8 overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">Battle Log</h2>
             {battleLog.map((message, index) => (
               <p key={index} className="mb-2">
