@@ -214,7 +214,6 @@ const TwoPlayer = () => {
 
       const damage = Math.floor(power * scale);
       receiver.hp = Math.max(0, receiver.hp - damage);
-      updatePokemonHp(receiverId, receiver.hp);
     } else {
       setTimeout(() => {
         setCommentText("Attack missed!");
@@ -260,18 +259,6 @@ const TwoPlayer = () => {
     }
   };
 
-  const updatePokemonHp = (pokemonId: string, hp: number) => {
-    if (pokemonId === "selectedPokemon") {
-      setPokemonList((prevList) =>
-        prevList.map((pokemon) =>
-          pokemon.name === selectedPokemon?.name ? { ...pokemon, hp } : pokemon
-        )
-      );
-    // } else {
-    //   setPk2((prevPk2) => prevPk2 && { ...prevPk2, hp });
-    }
-  };
-
   const checkWinner = () => {
     const loser =
       selectedPokemon && selectedPokemon.hp <= 0
@@ -281,10 +268,6 @@ const TwoPlayer = () => {
         : false;
     if (loser) {
       setGameOver(true);
-      updatePokemonHp(
-        loser === selectedPokemon ? "selectedPokemon" : "player2Pokemon",
-        0
-      );
       setTimeout(() => {
         alert(`GAME OVER: ${loser.name} fainted!`);
         addToBattleLog(`GAME OVER: ${loser.name} fainted!`);
