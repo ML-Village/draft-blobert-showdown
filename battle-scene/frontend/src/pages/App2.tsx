@@ -72,23 +72,25 @@ const typeMatch: Record<string, [string[], string[], string[]]> = {
 // Battle component
 const TwoPlayer = () => {
   const [gameOver, setGameOver] = useState(false);
-  const [pk2, setPk2] = useState<Pokemon | null>(null);
   const [battleLog, setBattleLog] = useState<string[]>([]);
   const [commentText, setCommentText] = useState("");
+
+  // Player1
+  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showFightButtons, setShowFightButtons] = useState(true);
   const [showMoveButtons, setShowMoveButtons] = useState(false);
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [showPokemonButtons, setShowPokemonButtons] = useState(false);
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+
+  // Player 2
   const [player2PokemonList, setPlayer2PokemonList] = useState<Pokemon[]>([]);
-
-
   const [player2Pokemon, setPlayer2Pokemon] = useState<Pokemon | null>(null);
   const [player2ShowFightButtons, setPlayer2ShowFightButtons] = useState(true);
   const [player2ShowMoveButtons, setPlayer2ShowMoveButtons] = useState(false);
   const [player2ShowPokemonButtons, setPlayer2ShowPokemonButtons] =
     useState(false);
 
+  // Framer motion animation
   const charizardControls = useAnimation();
   const blastoiseControls = useAnimation();
   const [isProjectileVisible, setIsProjectileVisible] = useState(false);
@@ -97,90 +99,8 @@ const TwoPlayer = () => {
   const [projectileSrc, setProjectileSrc] = useState("");
   const [isProjectileFlipped, setIsProjectileFlipped] = useState(false);
   const projectileControls = useAnimation();
-
   const charizardPosition = { x: 240, y: 320 };
   const blastoisePosition = { x: 600, y: 200 };
-
-  const handleTackle = async (
-    attacker: any,
-    defender: any,
-    attackerControls: any,
-    defenderControls: any
-  ) => {
-    const movementDistance = 20;
-    await attackerControls.start({
-      x: attacker === "charizard" ? -movementDistance : movementDistance,
-      transition: { duration: 0.2 },
-    });
-    await attackerControls.start({
-      x:
-        attacker === "charizard" ? movementDistance * 2 : -movementDistance * 2,
-      transition: { duration: 0.2 },
-    });
-    await defenderControls.start({
-      x: 10,
-      opacity: 0,
-      transition: {
-        duration: 0.08,
-        yoyo: Infinity,
-        repeat: 5,
-        repeatType: "mirror",
-      },
-    });
-    await attackerControls.start({ x: 0, transition: { duration: 0.1 } });
-  };
-
-  const handleProjectile = async (
-    attacker: any,
-    defender: any,
-    attackerPosition: any,
-    defenderPosition: any,
-    projectileName: string
-  ) => {
-    setIsProjectileVisible(true);
-    setProjectilePosition(attackerPosition);
-    setProjectileRotation(attacker === "charizard" ? 60 : 40);
-    setProjectileSrc(
-      projectileName === "fireball" ? "fireball.png" : "wave-Sheet.png"
-    );
-    setIsProjectileFlipped(attacker === "blastoise");
-
-    await projectileControls.start({
-      x: attackerPosition.x,
-      y: attackerPosition.y,
-      opacity: 1,
-      transition: { duration: 0 },
-    });
-    await projectileControls.start({
-      x: defenderPosition.x - attackerPosition.x,
-      y: defenderPosition.y - attackerPosition.y,
-      transition: {
-        duration: projectileName === "surf" ? 1 : 0.5, // Adjust the duration for surf projectile
-      },
-    });
-    await (attacker === "charizard"
-      ? blastoiseControls
-      : charizardControls
-    ).start({
-      x: 10,
-      opacity: 0,
-      transition: {
-        duration: 0.08,
-        yoyo: Infinity,
-        repeat: 5,
-        repeatType: "mirror",
-      },
-    });
-    await (attacker === "charizard"
-      ? blastoiseControls
-      : charizardControls
-    ).start({
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.2 },
-    });
-    setIsProjectileVisible(false);
-  };
 
   useEffect(() => {
     initializeBattle();
@@ -189,27 +109,22 @@ const TwoPlayer = () => {
   const initializeBattle = () => {
     const player1 = pkmList.map((pkm) => new Pokemon(...pkm));
     const player2 = pkmList.map((pkm) => new Pokemon(...pkm));
-  
+
     // Modify sprites for player 1 (rear) and player 2 (front)
-    player1.forEach(pokemon => {
+    player1.forEach((pokemon) => {
       pokemon.sprite = pokemon.sprite.replace(".png", "-REAR.png");
     });
-  
-    player2.forEach(pokemon => {
+
+    player2.forEach((pokemon) => {
       pokemon.sprite = pokemon.sprite.replace(".png", "-FRONT.png");
     });
-  
+
     setPokemonList(player1);
     setPlayer2PokemonList(player2);
-  
-    setSelectedPokemon(player1[2]); // Initialize player 1's selected Pokemon
-    setPlayer2Pokemon(player2[0]);  // Initialize player 2's selected Pokemon
-  };
 
-  // const spawnPokemon = () => {
-  //   const randomPokemon = pkmList[Math.floor(Math.random() * pkmList.length)];
-  //   return new Pokemon(...randomPokemon);
-  // };
+    setSelectedPokemon(player1[2]); // Initialize player 1's selected Pokemon
+    setPlayer2Pokemon(player2[0]); // Initialize player 2's selected Pokemon
+  };
 
   const addToBattleLog = (message: string) => {
     setBattleLog((prevLog) => [...prevLog, message]);
@@ -307,15 +222,6 @@ const TwoPlayer = () => {
       }, 1000);
     }
 
-    // Opponent's attack
-    if (receiverId === "pk2" && !gameOver && pk2 && pk2.hp > 0) {
-      setTimeout(() => {
-        const opponentMove =
-          pk2.moves[Math.floor(Math.random() * pk2.moves.length)];
-        attack(opponentMove, pk2, selectedPokemon!, "selectedPokemon", "Foe ");
-      }, 2000);
-    }
-
     // Clear the comment after the attack has been displayed and logged
     setTimeout(() => {
       setCommentText("");
@@ -361,8 +267,8 @@ const TwoPlayer = () => {
           pokemon.name === selectedPokemon?.name ? { ...pokemon, hp } : pokemon
         )
       );
-    } else {
-      setPk2((prevPk2) => prevPk2 && { ...prevPk2, hp });
+    // } else {
+    //   setPk2((prevPk2) => prevPk2 && { ...prevPk2, hp });
     }
   };
 
@@ -384,6 +290,87 @@ const TwoPlayer = () => {
         addToBattleLog(`GAME OVER: ${loser.name} fainted!`);
       }, 1500);
     }
+  };
+
+  const handleTackle = async (
+    attacker: any,
+    defender: any,
+    attackerControls: any,
+    defenderControls: any
+  ) => {
+    const movementDistance = 20;
+    await attackerControls.start({
+      x: attacker === "charizard" ? -movementDistance : movementDistance,
+      transition: { duration: 0.2 },
+    });
+    await attackerControls.start({
+      x:
+        attacker === "charizard" ? movementDistance * 2 : -movementDistance * 2,
+      transition: { duration: 0.2 },
+    });
+    await defenderControls.start({
+      x: 10,
+      opacity: 0,
+      transition: {
+        duration: 0.08,
+        yoyo: Infinity,
+        repeat: 5,
+        repeatType: "mirror",
+      },
+    });
+    await attackerControls.start({ x: 0, transition: { duration: 0.1 } });
+  };
+
+  const handleProjectile = async (
+    attacker: any,
+    defender: any,
+    attackerPosition: any,
+    defenderPosition: any,
+    projectileName: string
+  ) => {
+    setIsProjectileVisible(true);
+    setProjectilePosition(attackerPosition);
+    setProjectileRotation(attacker === "charizard" ? 60 : 40);
+    setProjectileSrc(
+      projectileName === "fireball" ? "fireball.png" : "wave-Sheet.png"
+    );
+    setIsProjectileFlipped(attacker === "blastoise");
+
+    await projectileControls.start({
+      x: attackerPosition.x,
+      y: attackerPosition.y,
+      opacity: 1,
+      transition: { duration: 0 },
+    });
+    await projectileControls.start({
+      x: defenderPosition.x - attackerPosition.x,
+      y: defenderPosition.y - attackerPosition.y,
+      transition: {
+        duration: projectileName === "surf" ? 1 : 0.5, // Adjust the duration for surf projectile
+      },
+    });
+    await (attacker === "charizard"
+      ? blastoiseControls
+      : charizardControls
+    ).start({
+      x: 10,
+      opacity: 0,
+      transition: {
+        duration: 0.08,
+        yoyo: Infinity,
+        repeat: 5,
+        repeatType: "mirror",
+      },
+    });
+    await (attacker === "charizard"
+      ? blastoiseControls
+      : charizardControls
+    ).start({
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.2 },
+    });
+    setIsProjectileVisible(false);
   };
 
   return (
@@ -480,7 +467,7 @@ const TwoPlayer = () => {
                             move,
                             selectedPokemon,
                             player2Pokemon!,
-                            "player2Pokemon",
+                            "pk2",
                             "Player 1 "
                           );
 
